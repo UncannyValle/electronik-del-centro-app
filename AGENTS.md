@@ -4,6 +4,7 @@
 - Stack: Next.js App Router + TypeScript + Tailwind + shadcn/ui patterns.
 - Prefer React Server Components for data fetching and composition.
 - Keep UI components lightweight and presentational.
+- Prefer direct React type/function imports (e.g. `forwardRef`, `type ComponentRef`) over `React.*` namespaced type usage.
 - Move non-trivial behavior/state transitions into hooks, reducers, or context modules.
 - Avoid `useState` sprawl. Use `useReducer` when state has multiple transitions.
 - Use React Context API for cross-route/shared state (cart, user session, preferences).

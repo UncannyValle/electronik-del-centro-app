@@ -3,6 +3,8 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
+  --font-body: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-heading: "Space Grotesk", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --background: oklch(0.99 0.01 90);
   --foreground: oklch(0.2 0.02 250);
   --card: oklch(1 0 0);

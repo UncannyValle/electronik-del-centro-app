@@ -1,8 +1,8 @@
-import * as React from "react";
+import type { HTMLAttributes } from "react";
 
 import { cn } from "@/lib/utils";
 
-function Separator({ className, ...props }: React.HTMLAttributes<HTMLHRElement>) {
+function Separator({ className, ...props }: HTMLAttributes<HTMLHRElement>) {
   return <hr className={cn("border-border", className)} {...props} />;
 }
 

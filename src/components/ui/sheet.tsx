@@ -1,6 +1,11 @@
 "use client";
 
-import * as React from "react";
+import {
+  forwardRef,
+  type ComponentPropsWithoutRef,
+  type ComponentRef,
+  type HTMLAttributes
+} from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
 
@@ -15,9 +20,9 @@ const SheetPortal = ({ ...props }: Dialog.DialogPortalProps) => (
 );
 SheetPortal.displayName = Dialog.Portal.displayName;
 
-const SheetOverlay = React.forwardRef<
-  React.ElementRef<typeof Dialog.Overlay>,
-  React.ComponentPropsWithoutRef<typeof Dialog.Overlay>
+const SheetOverlay = forwardRef<
+  ComponentRef<typeof Dialog.Overlay>,
+  ComponentPropsWithoutRef<typeof Dialog.Overlay>
 >(({ className, ...props }, ref) => (
   <Dialog.Overlay
     className={cn(
@@ -30,9 +35,9 @@ const SheetOverlay = React.forwardRef<
 ));
 SheetOverlay.displayName = Dialog.Overlay.displayName;
 
-const SheetContent = React.forwardRef<
-  React.ElementRef<typeof Dialog.Content>,
-  React.ComponentPropsWithoutRef<typeof Dialog.Content>
+const SheetContent = forwardRef<
+  ComponentRef<typeof Dialog.Content>,
+  ComponentPropsWithoutRef<typeof Dialog.Content>
 >(({ className, children, ...props }, ref) => (
   <SheetPortal>
     <SheetOverlay />
@@ -54,22 +59,22 @@ const SheetContent = React.forwardRef<
 ));
 SheetContent.displayName = Dialog.Content.displayName;
 
-const SheetHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
+const SheetHeader = ({ className, ...props }: HTMLAttributes<HTMLDivElement>) => (
   <div className={cn("flex flex-col space-y-1.5 text-left", className)} {...props} />
 );
 SheetHeader.displayName = "SheetHeader";
 
-const SheetTitle = React.forwardRef<
-  React.ElementRef<typeof Dialog.Title>,
-  React.ComponentPropsWithoutRef<typeof Dialog.Title>
+const SheetTitle = forwardRef<
+  ComponentRef<typeof Dialog.Title>,
+  ComponentPropsWithoutRef<typeof Dialog.Title>
 >(({ className, ...props }, ref) => (
   <Dialog.Title ref={ref} className={cn("text-lg font-semibold", className)} {...props} />
 ));
 SheetTitle.displayName = Dialog.Title.displayName;
 
-const SheetDescription = React.forwardRef<
-  React.ElementRef<typeof Dialog.Description>,
-  React.ComponentPropsWithoutRef<typeof Dialog.Description>
+const SheetDescription = forwardRef<
+  ComponentRef<typeof Dialog.Description>,
+  ComponentPropsWithoutRef<typeof Dialog.Description>
 >(({ className, ...props }, ref) => (
   <Dialog.Description
     ref={ref}
