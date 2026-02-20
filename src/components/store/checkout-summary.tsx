@@ -1,37 +1,43 @@
 "use client";
 
 import { useCart } from "@/hooks/use-cart";
+import { useLocale } from "@/hooks/use-locale";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 
 export function CheckoutSummary() {
   const { itemCount, subtotal } = useCart();
+  const { locale, m } = useLocale();
   const shipping = subtotal > 500 ? 0 : 19.99;
   const tax = subtotal * 0.0825;
   const total = subtotal + shipping + tax;
+  const currency = new Intl.NumberFormat(locale, {
+    style: "currency",
+    currency: "USD"
+  });
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Order Summary</CardTitle>
+        <CardTitle>{m.summary.title}</CardTitle>
       </CardHeader>
       <CardContent className="space-y-3">
         <div className="flex items-center justify-between text-sm">
-          <span className="text-muted-foreground">Items ({itemCount})</span>
-          <span>${subtotal.toFixed(2)}</span>
+          <span className="text-muted-foreground">{m.summary.items} ({itemCount})</span>
+          <span>{currency.format(subtotal)}</span>
         </div>
         <div className="flex items-center justify-between text-sm">
-          <span className="text-muted-foreground">Shipping</span>
-          <span>{shipping === 0 ? "Free" : `$${shipping.toFixed(2)}`}</span>
+          <span className="text-muted-foreground">{m.summary.shipping}</span>
+          <span>{shipping === 0 ? m.summary.free : currency.format(shipping)}</span>
         </div>
         <div className="flex items-center justify-between text-sm">
-          <span className="text-muted-foreground">Estimated Tax</span>
-          <span>${tax.toFixed(2)}</span>
+          <span className="text-muted-foreground">{m.summary.estimatedTax}</span>
+          <span>{currency.format(tax)}</span>
         </div>
         <Separator className="my-2" />
         <div className="flex items-center justify-between font-semibold">
-          <span>Total</span>
-          <span>${total.toFixed(2)}</span>
+          <span>{m.summary.total}</span>
+          <span>{currency.format(total)}</span>
         </div>
       </CardContent>
     </Card>

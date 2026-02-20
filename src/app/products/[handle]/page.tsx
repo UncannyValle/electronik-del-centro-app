@@ -6,6 +6,7 @@ import { AddToCartButton } from "@/components/store/add-to-cart-button";
 import { Price } from "@/components/store/price";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { getServerMessages } from "@/lib/i18n/server";
 import { storefront } from "@/lib/storefront";
 
 export default async function ProductDetailPage({
@@ -13,12 +14,19 @@ export default async function ProductDetailPage({
 }: {
   params: Promise<{ handle: string }>;
 }) {
+  const { m } = await getServerMessages();
   const { handle } = await params;
   const product = await storefront.getProductByHandle(handle);
 
   if (!product) {
     notFound();
   }
+
+  const categoryLabel =
+    product.category === "electronics"
+      ? m.products.categoryElectronics
+      : m.products.categoryCarStereo;
+  const description = m.productDescriptions[product.id] ?? product.description;
 
   return (
     <div className="grid gap-8 lg:grid-cols-[1.2fr_1fr] lg:items-start">
@@ -27,16 +35,18 @@ export default async function ProductDetailPage({
       </div>
       <div className="space-y-5">
         <Badge variant="secondary" className="capitalize">
-          {product.category.replace("-", " ")}
+          {categoryLabel}
         </Badge>
         <h1 className="font-heading text-3xl font-bold">{product.title}</h1>
-        <p className="text-muted-foreground">{product.description}</p>
+        <p className="text-muted-foreground">{description}</p>
         <Price amount={product.price} compareAt={product.compareAtPrice} />
-        <p className="text-sm text-muted-foreground">{product.stock} units available</p>
+        <p className="text-sm text-muted-foreground">
+          {product.stock} {m.products.unitsAvailable}
+        </p>
         <div className="flex flex-wrap gap-3">
           <AddToCartButton product={product} />
           <Button asChild variant="outline">
-            <Link href="/products">Back to Products</Link>
+            <Link href="/products">{m.products.backToProducts}</Link>
           </Button>
         </div>
       </div>

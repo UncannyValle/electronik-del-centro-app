@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 
 import { ProductCard } from "@/components/store/product-card";
+import { getServerMessages } from "@/lib/i18n/server";
 import { storefront } from "@/lib/storefront";
 
 async function ProductsGrid() {
@@ -15,16 +16,16 @@ async function ProductsGrid() {
   );
 }
 
-export default function ProductsPage() {
+export default async function ProductsPage() {
+  const { m } = await getServerMessages();
+
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="font-heading text-3xl font-bold">All Products</h1>
-        <p className="text-sm text-muted-foreground">
-          Explore electronics and car stereo inventory.
-        </p>
+        <h1 className="font-heading text-3xl font-bold">{m.products.title}</h1>
+        <p className="text-sm text-muted-foreground">{m.products.description}</p>
       </div>
-      <Suspense fallback={<p className="text-sm text-muted-foreground">Loading products...</p>}>
+      <Suspense fallback={<p className="text-sm text-muted-foreground">{m.products.loading}</p>}>
         <ProductsGrid />
       </Suspense>
     </div>

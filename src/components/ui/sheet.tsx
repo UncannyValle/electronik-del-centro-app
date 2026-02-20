@@ -9,6 +9,7 @@ import {
 import * as Dialog from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
 
+import { useLocale } from "@/hooks/use-locale";
 import { cn } from "@/lib/utils";
 
 const Sheet = Dialog.Root;
@@ -39,25 +40,39 @@ const SheetContent = forwardRef<
   ComponentRef<typeof Dialog.Content>,
   ComponentPropsWithoutRef<typeof Dialog.Content>
 >(({ className, children, ...props }, ref) => (
-  <SheetPortal>
-    <SheetOverlay />
-    <Dialog.Content
-      ref={ref}
-      className={cn(
-        "fixed inset-y-0 right-0 z-50 w-[85vw] max-w-sm border-l border-border bg-background p-6 shadow-lg",
-        className
-      )}
-      {...props}
-    >
-      {children}
-      <SheetClose className="absolute right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
-        <X className="h-4 w-4" />
-        <span className="sr-only">Close</span>
-      </SheetClose>
-    </Dialog.Content>
-  </SheetPortal>
+  <SheetContentInner className={className} ref={ref} {...props}>
+    {children}
+  </SheetContentInner>
 ));
 SheetContent.displayName = Dialog.Content.displayName;
+
+const SheetContentInner = forwardRef<
+  ComponentRef<typeof Dialog.Content>,
+  ComponentPropsWithoutRef<typeof Dialog.Content>
+>(({ className, children, ...props }, ref) => {
+  const { m } = useLocale();
+
+  return (
+    <SheetPortal>
+      <SheetOverlay />
+      <Dialog.Content
+        ref={ref}
+        className={cn(
+          "fixed inset-y-0 right-0 z-50 w-[85vw] max-w-sm border-l border-border bg-background p-6 shadow-lg",
+          className
+        )}
+        {...props}
+      >
+        {children}
+        <SheetClose className="absolute right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+          <X className="h-4 w-4" />
+          <span className="sr-only">{m.common.close}</span>
+        </SheetClose>
+      </Dialog.Content>
+    </SheetPortal>
+  );
+});
+SheetContentInner.displayName = "SheetContentInner";
 
 const SheetHeader = ({ className, ...props }: HTMLAttributes<HTMLDivElement>) => (
   <div className={cn("flex flex-col space-y-1.5 text-left", className)} {...props} />

@@ -4,6 +4,7 @@ import {
   createContext,
   useContext,
   useEffect,
+  useRef,
   useReducer,
   type Dispatch,
   type ReactNode
@@ -15,6 +16,7 @@ type CartState = {
 };
 
 type CartAction =
+  | { type: "hydrate"; payload: CartItem[] }
   | { type: "add"; payload: CartItem }
   | { type: "remove"; payload: { productId: string } }
   | { type: "updateQuantity"; payload: { productId: string; quantity: number } }
@@ -31,6 +33,8 @@ const CartContext = createContext<CartContextValue | undefined>(undefined);
 
 function cartReducer(state: CartState, action: CartAction): CartState {
   switch (action.type) {
+    case "hydrate":
+      return { items: action.payload };
     case "add": {
       const existing = state.items.find(
         (item) => item.productId === action.payload.productId
@@ -69,29 +73,31 @@ function cartReducer(state: CartState, action: CartAction): CartState {
 
 const STORAGE_KEY = "edc-cart";
 
-function getInitialCartState(): CartState {
-  if (typeof window === "undefined") {
-    return { items: [] };
-  }
-
-  const raw = window.localStorage.getItem(STORAGE_KEY);
-  if (!raw) {
-    return { items: [] };
-  }
-
-  try {
-    const parsed = JSON.parse(raw) as CartItem[];
-    return Array.isArray(parsed) ? { items: parsed } : { items: [] };
-  } catch {
-    window.localStorage.removeItem(STORAGE_KEY);
-    return { items: [] };
-  }
-}
-
 export function CartProvider({ children }: { children: ReactNode }) {
-  const [state, dispatch] = useReducer(cartReducer, undefined, getInitialCartState);
+  const [state, dispatch] = useReducer(cartReducer, { items: [] });
+  const hasHydratedFromStorage = useRef(false);
 
   useEffect(() => {
+    const raw = window.localStorage.getItem(STORAGE_KEY);
+    if (!raw) {
+      hasHydratedFromStorage.current = true;
+      return;
+    }
+
+    try {
+      const parsed = JSON.parse(raw) as CartItem[];
+      if (Array.isArray(parsed)) {
+        dispatch({ type: "hydrate", payload: parsed });
+      }
+    } catch {
+      window.localStorage.removeItem(STORAGE_KEY);
+    } finally {
+      hasHydratedFromStorage.current = true;
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!hasHydratedFromStorage.current) return;
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state.items));
   }, [state.items]);
 

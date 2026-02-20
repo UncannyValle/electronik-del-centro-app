@@ -1,6 +1,7 @@
 "use client";
 
 import { useCart } from "@/hooks/use-cart";
+import { useLocale } from "@/hooks/use-locale";
 import type { Product } from "@/lib/types";
 import { Button } from "@/components/ui/button";
 
@@ -12,6 +13,7 @@ export function AddToCartButton({
   quantity?: number;
 }) {
   const { dispatch } = useCart();
+  const { m } = useLocale();
   const disabled = product.stock < 1;
 
   return (
@@ -31,7 +33,7 @@ export function AddToCartButton({
         })
       }
     >
-      {disabled ? "Out of Stock" : "Add to Cart"}
+      {disabled ? m.cart.outOfStock : m.cart.addToCart}
     </Button>
   );
 }

@@ -3,6 +3,7 @@ import { Suspense } from "react";
 
 import { ProductCard } from "@/components/store/product-card";
 import { Button } from "@/components/ui/button";
+import { getServerMessages } from "@/lib/i18n/server";
 import { storefront } from "@/lib/storefront";
 
 async function FeaturedProducts() {
@@ -17,26 +18,28 @@ async function FeaturedProducts() {
   );
 }
 
-export default function HomePage() {
+export default async function HomePage() {
+  const { m } = await getServerMessages();
+
   return (
     <div className="space-y-10">
       <section className="relative overflow-hidden rounded-2xl border border-border bg-gradient-to-r from-primary to-[#073a9a] p-8 text-primary-foreground">
         <div className="max-w-2xl space-y-4">
           <p className="font-heading text-xs uppercase tracking-[0.2em] text-primary-foreground/80">
-            Electronics + Car Audio
+            {m.home.heroTag}
           </p>
           <h1 className="font-heading text-4xl font-bold sm:text-5xl">
-            Build your perfect setup with Electronik Del Centro
+            {m.home.heroTitle}
           </h1>
           <p className="max-w-xl text-primary-foreground/90">
-            From flagship TVs to clean custom stereo installs, this storefront is ready for Shopify Storefront API integration.
+            {m.home.heroDescription}
           </p>
           <div className="flex gap-3">
             <Button asChild variant="secondary">
-              <Link href="/products">Shop Products</Link>
+              <Link href="/products">{m.home.shopProducts}</Link>
             </Button>
             <Button asChild variant="outline" className="border-primary-foreground/40 bg-transparent text-primary-foreground hover:bg-primary-foreground/10">
-              <Link href="/contact">Talk to Us</Link>
+              <Link href="/contact">{m.home.talkToUs}</Link>
             </Button>
           </div>
         </div>
@@ -45,13 +48,13 @@ export default function HomePage() {
       <section className="space-y-4">
         <div className="flex items-end justify-between">
           <div>
-            <h2 className="font-heading text-2xl font-bold">Featured Products</h2>
+            <h2 className="font-heading text-2xl font-bold">{m.home.featuredTitle}</h2>
             <p className="text-sm text-muted-foreground">
-              Server-rendered now with mock data, designed to swap to Shopify queries later.
+              {m.home.featuredDescription}
             </p>
           </div>
         </div>
-        <Suspense fallback={<p className="text-sm text-muted-foreground">Loading featured products...</p>}>
+        <Suspense fallback={<p className="text-sm text-muted-foreground">{m.home.loadingFeatured}</p>}>
           <FeaturedProducts />
         </Suspense>
       </section>

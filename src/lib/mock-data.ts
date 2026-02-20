@@ -13,7 +13,7 @@ export const products: Product[] = [
     handle: "pioneer-dmh-1500nex",
     title: "Pioneer DMH-1500NEX",
     description:
-      "Digital multimedia receiver with Apple CarPlay, Android Auto, and responsive capacitive touch display.",
+      "Receptor multimedia digital con Apple CarPlay, Android Auto y pantalla táctil capacitiva rápida.",
     category: "car-stereo",
     price: 399.99,
     compareAtPrice: 449.99,
@@ -27,7 +27,7 @@ export const products: Product[] = [
     handle: "kenwood-excelon-x802-5",
     title: "Kenwood Excelon X802-5",
     description:
-      "5-channel class D amplifier tuned for clean highs and deep low-end for full vehicle systems.",
+      "Amplificador clase D de 5 canales afinado para agudos limpios y bajos con buena pegada en todo el sistema.",
     category: "car-stereo",
     price: 529.0,
     image:
@@ -40,7 +40,7 @@ export const products: Product[] = [
     handle: "sony-wh-1000xm6",
     title: "Sony WH-1000XM6",
     description:
-      "Wireless noise-canceling headphones with adaptive listening and all-day battery life.",
+      "Audífonos inalámbricos con cancelación de ruido, escucha adaptativa y batería para todo el día.",
     category: "electronics",
     price: 429.99,
     image:
@@ -53,7 +53,7 @@ export const products: Product[] = [
     handle: "jbl-basspro-hub",
     title: "JBL BassPro Hub",
     description:
-      "Compact powered subwoofer engineered to mount in your spare tire area for stealth installs.",
+      "Subwoofer activo compacto diseñado para montarse en el espacio de la llanta de refacción sin estorbar.",
     category: "car-stereo",
     price: 549.95,
     image:
@@ -65,7 +65,7 @@ export const products: Product[] = [
     handle: "lg-oled-c4-55",
     title: "LG OLED C4 55\"",
     description:
-      "4K OLED panel with rich contrast, gaming-ready HDMI 2.1 ports, and premium color accuracy.",
+      "Pantalla OLED 4K con contraste profundo, HDMI 2.1 para gaming y color premium.",
     category: "electronics",
     price: 1299.99,
     compareAtPrice: 1499.99,
@@ -78,7 +78,7 @@ export const products: Product[] = [
     handle: "alpine-ilx-507",
     title: "Alpine iLX-507",
     description:
-      "Premium floating screen receiver with wireless CarPlay, Android Auto, and HD audio support.",
+      "Receptor premium con pantalla flotante, CarPlay inalámbrico, Android Auto y soporte de audio HD.",
     category: "car-stereo",
     price: 699.0,
     image:

@@ -4,19 +4,25 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { useCart } from "@/hooks/use-cart";
+import { useLocale } from "@/hooks/use-locale";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
 export function CartItems() {
   const { state, dispatch } = useCart();
+  const { locale, m } = useLocale();
+  const currency = new Intl.NumberFormat(locale, {
+    style: "currency",
+    currency: "USD"
+  });
 
   if (state.items.length === 0) {
     return (
       <Card>
         <CardContent className="pt-6">
-          <p className="text-muted-foreground">Your cart is empty.</p>
+          <p className="text-muted-foreground">{m.cart.empty}</p>
           <Button asChild className="mt-4">
-            <Link href="/products">Start Shopping</Link>
+            <Link href="/products">{m.cart.startShopping}</Link>
           </Button>
         </CardContent>
       </Card>
@@ -34,7 +40,7 @@ export function CartItems() {
               </div>
               <div>
                 <p className="font-semibold">{item.title}</p>
-                <p className="text-sm text-muted-foreground">${item.price.toFixed(2)}</p>
+                <p className="text-sm text-muted-foreground">{currency.format(item.price)}</p>
               </div>
             </div>
 
@@ -74,7 +80,7 @@ export function CartItems() {
                   })
                 }
               >
-                Remove
+                {m.cart.remove}
               </Button>
             </div>
           </CardContent>

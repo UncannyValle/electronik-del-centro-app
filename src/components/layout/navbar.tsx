@@ -5,6 +5,7 @@ import { Menu, Moon, ShoppingCart, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 
 import { useCart } from "@/hooks/use-cart";
+import { useLocale } from "@/hooks/use-locale";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -15,17 +16,18 @@ import {
   SheetTrigger
 } from "@/components/ui/sheet";
 
-const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/products", label: "Products" },
-  { href: "/contact", label: "Contact" },
-  { href: "/cart", label: "Cart" },
-  { href: "/checkout", label: "Checkout" }
-];
-
 export function Navbar() {
   const { setTheme, resolvedTheme } = useTheme();
   const { itemCount } = useCart();
+  const { locale, m, setLocale } = useLocale();
+  const nextLocale = locale === "es" ? "en" : "es";
+  const navLinks = [
+    { href: "/", label: m.nav.home },
+    { href: "/products", label: m.nav.products },
+    { href: "/contact", label: m.nav.contact },
+    { href: "/cart", label: m.nav.cart },
+    { href: "/checkout", label: m.nav.checkout }
+  ];
 
   return (
     <nav className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-3 lg:px-6">
@@ -46,10 +48,18 @@ export function Navbar() {
           variant="outline"
           size="icon"
           onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-          aria-label="Toggle theme"
+          aria-label={m.nav.toggleTheme}
         >
           <Sun className="hidden h-4 w-4 dark:block" />
           <Moon className="h-4 w-4 dark:hidden" />
+        </Button>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => setLocale(nextLocale)}
+          aria-label={`${m.nav.language}: ${nextLocale.toUpperCase()}`}
+        >
+          {nextLocale.toUpperCase()}
         </Button>
         <Button asChild variant="outline" size="sm" className="gap-1">
           <Link href="/cart">
@@ -62,14 +72,14 @@ export function Navbar() {
       <div className="md:hidden">
         <Sheet>
           <SheetTrigger asChild>
-            <Button variant="outline" size="icon" aria-label="Open menu">
+            <Button variant="outline" size="icon" aria-label={m.nav.openMenu}>
               <Menu className="h-5 w-5" />
             </Button>
           </SheetTrigger>
           <SheetContent>
             <SheetHeader>
-              <SheetTitle>Menu</SheetTitle>
-              <SheetDescription>Browse the store and manage your cart.</SheetDescription>
+              <SheetTitle>{m.nav.menu}</SheetTitle>
+              <SheetDescription>{m.nav.menuDescription}</SheetDescription>
             </SheetHeader>
             <div className="mt-6 flex flex-col gap-2">
               {navLinks.map((link) => (
@@ -82,8 +92,15 @@ export function Navbar() {
                 className="justify-start"
                 onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
               >
-                <span className="hidden dark:inline">Switch to Light</span>
-                <span className="dark:hidden">Switch to Dark</span>
+                <span className="hidden dark:inline">{m.nav.switchToLight}</span>
+                <span className="dark:hidden">{m.nav.switchToDark}</span>
+              </Button>
+              <Button
+                variant="outline"
+                className="justify-start"
+                onClick={() => setLocale(nextLocale)}
+              >
+                {m.nav.language}: {nextLocale.toUpperCase()}
               </Button>
             </div>
           </SheetContent>
