@@ -1,0 +1,6 @@
+schema:
+  - ${SHOPIFY_STOREFRONT_GRAPHQL_ENDPOINT:https://electronik-dev.myshopify.com/api/2026-01/graphql.json}:
+      headers:
+        X-Shopify-Storefront-Access-Token: ${SHOPIFY_STOREFRONT_PUBLIC_ACCESS_TOKEN:}
+documents:
+  - src/**/*.{ts,tsx,graphql,gql}
