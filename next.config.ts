@@ -1,19 +1,20 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from "next"
 
 const nextConfig: NextConfig = {
   reactCompiler: true,
+  cacheComponents: true,
   images: {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "images.unsplash.com"
+        hostname: "images.unsplash.com",
       },
       {
         protocol: "https",
-        hostname: "cdn.shopify.com"
-      }
-    ]
-  }
-};
+        hostname: "cdn.shopify.com",
+      },
+    ],
+  },
+}
 
-export default nextConfig;
+export default nextConfig

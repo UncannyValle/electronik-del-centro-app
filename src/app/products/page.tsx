@@ -1,11 +1,10 @@
-import { Suspense } from "react";
-
-import { ProductCard } from "@/components/store/product-card";
-import { getServerMessages } from "@/lib/i18n/server";
-import { storefront } from "@/lib/storefront";
+import { Suspense } from "react"
+import { ProductCard } from "@/components/store/product-card"
+import { getServerMessages } from "@/lib/i18n/server"
+import { storefront } from "@/lib/storefront"
 
 async function ProductsGrid() {
-  const products = await storefront.getProducts();
+  const products = await storefront.getProducts()
 
   return (
     <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
@@ -13,11 +12,11 @@ async function ProductsGrid() {
         <ProductCard key={product.id} product={product} />
       ))}
     </div>
-  );
+  )
 }
 
 export default async function ProductsPage() {
-  const { m } = await getServerMessages();
+  const { m } = await getServerMessages()
 
   return (
     <div className="space-y-6">
@@ -29,5 +28,5 @@ export default async function ProductsPage() {
         <ProductsGrid />
       </Suspense>
     </div>
-  );
+  )
 }

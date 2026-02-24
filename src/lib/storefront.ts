@@ -1,16 +1,35 @@
 import { products } from "@/lib/mock-data";
 import type { Product, StorefrontClient } from "@/lib/types";
 import { createStorefrontApiClient } from "@shopify/storefront-api-client";
+import { cacheLife } from "next/cache";
 
-const mockStorefrontClient: StorefrontClient = {
+async function getMockedProducts() {
+  "use cache";
+  cacheLife("max");
+  return products;
+}
+
+async function getMockedFeaturedProducts() {
+  "use cache";
+  cacheLife("max");
+  return products.filter((product) => product.featured);
+}
+
+async function getMockedProductByHandle(handle: string) {
+  "use cache";
+  cacheLife("max");
+  return products.find((product) => product.handle === handle) ?? null;
+}
+
+const mockedStorefrontClient: StorefrontClient = {
   async getProducts() {
-    return products;
+    return getMockedProducts();
   },
   async getFeaturedProducts() {
-    return products.filter((product) => product.featured);
+    return getMockedFeaturedProducts();
   },
   async getProductByHandle(handle) {
-    return products.find((product) => product.handle === handle) ?? null;
+    return getMockedProductByHandle(handle);
   }
 };
 
@@ -166,6 +185,8 @@ function getShopifyClient() {
 
 const shopifyStorefrontClient: StorefrontClient = {
   async getProducts() {
+    "use cache";
+    cacheLife("minutes");
     const client = getShopifyClient();
     const { data, errors } = await client.request<{
       products: { nodes: StorefrontProductNode[] };
@@ -183,6 +204,8 @@ const shopifyStorefrontClient: StorefrontClient = {
     return data.products.nodes.map(mapStorefrontProduct);
   },
   async getFeaturedProducts() {
+    "use cache";
+    cacheLife("minutes");
     const client = getShopifyClient();
     const { data, errors } = await client.request<{
       products: { nodes: StorefrontProductNode[] };
@@ -206,6 +229,8 @@ const shopifyStorefrontClient: StorefrontClient = {
     return (await shopifyStorefrontClient.getProducts()).slice(0, 6);
   },
   async getProductByHandle(handle) {
+    "use cache";
+    cacheLife("minutes");
     const client = getShopifyClient();
     const { data, errors } = await client.request<{
       product: StorefrontProductNode | null;
@@ -233,21 +258,21 @@ function shouldUseShopifyStorefront() {
 export const storefront = {
   async getProducts() {
     if (!shouldUseShopifyStorefront()) {
-      return mockStorefrontClient.getProducts();
+      return mockedStorefrontClient.getProducts();
     }
 
     return shopifyStorefrontClient.getProducts();
   },
   async getFeaturedProducts() {
     if (!shouldUseShopifyStorefront()) {
-      return mockStorefrontClient.getFeaturedProducts();
+      return mockedStorefrontClient.getFeaturedProducts();
     }
 
     return shopifyStorefrontClient.getFeaturedProducts();
   },
   async getProductByHandle(handle: string): Promise<Product | null> {
     if (!shouldUseShopifyStorefront()) {
-      return mockStorefrontClient.getProductByHandle(handle);
+      return mockedStorefrontClient.getProductByHandle(handle);
     }
 
     return shopifyStorefrontClient.getProductByHandle(handle);
