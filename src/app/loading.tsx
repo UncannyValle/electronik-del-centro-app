@@ -1,7 +1,7 @@
-import { Skeleton } from "@/components/ui/skeleton";
+import { Skeleton } from "@/components/ui/skeleton"
 
 export default function Loading() {
-  const skeletonItems = ["home-1", "home-2", "home-3"];
+  const skeletonItems = ["home-1", "home-2", "home-3"]
 
   return (
     <div className="space-y-6">
@@ -19,5 +19,5 @@ export default function Loading() {
         ))}
       </div>
     </div>
-  );
+  )
 }

@@ -1,12 +1,12 @@
-import { contactInfo } from "@/lib/mock-data";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { getServerMessages } from "@/lib/i18n/server";
+import { contactInfo } from "@/lib/mock-data"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+import { getServerMessages } from "@/lib/i18n/server"
 
 export default async function ContactPage() {
-  const { m } = await getServerMessages();
+  const { m } = await getServerMessages()
 
   return (
     <div className="grid gap-8 lg:grid-cols-2">
@@ -33,5 +33,5 @@ export default async function ContactPage() {
         </CardContent>
       </Card>
     </div>
-  );
+  )
 }

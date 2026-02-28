@@ -1,12 +1,12 @@
-import Link from "next/link";
+import Link from "next/link"
 
-import { CartItems } from "@/components/store/cart-items";
-import { CheckoutSummary } from "@/components/store/checkout-summary";
-import { Button } from "@/components/ui/button";
-import { getServerMessages } from "@/lib/i18n/server";
+import { CartItems } from "@/components/store/cart-items"
+import { CheckoutSummary } from "@/components/store/checkout-summary"
+import { Button } from "@/components/ui/button"
+import { getServerMessages } from "@/lib/i18n/server"
 
 export default async function CartPage() {
-  const { m } = await getServerMessages();
+  const { m } = await getServerMessages()
 
   return (
     <div className="grid gap-8 lg:grid-cols-[1.5fr_1fr]">
@@ -21,5 +21,5 @@ export default async function CartPage() {
         </Button>
       </aside>
     </div>
-  );
+  )
 }

@@ -1,101 +1,101 @@
-export const SUPPORTED_LOCALES = ["es", "en"] as const;
+export const SUPPORTED_LOCALES = ["es", "en"] as const
 
-export type Locale = (typeof SUPPORTED_LOCALES)[number];
+export type Locale = (typeof SUPPORTED_LOCALES)[number]
 
 type Messages = {
   nav: {
-    home: string;
-    products: string;
-    contact: string;
-    cart: string;
-    checkout: string;
-    toggleTheme: string;
-    openMenu: string;
-    menu: string;
-    menuDescription: string;
-    switchToLight: string;
-    switchToDark: string;
-    language: string;
-  };
+    home: string
+    products: string
+    contact: string
+    cart: string
+    checkout: string
+    toggleTheme: string
+    openMenu: string
+    menu: string
+    menuDescription: string
+    switchToLight: string
+    switchToDark: string
+    language: string
+  }
   footer: {
-    blurb: string;
-  };
+    blurb: string
+  }
   home: {
-    heroTag: string;
-    heroTitle: string;
-    heroDescription: string;
-    shopProducts: string;
-    talkToUs: string;
-    featuredTitle: string;
-    featuredDescription: string;
-    loadingFeatured: string;
-  };
+    heroTag: string
+    heroTitle: string
+    heroDescription: string
+    shopProducts: string
+    talkToUs: string
+    featuredTitle: string
+    featuredDescription: string
+    loadingFeatured: string
+  }
   products: {
-    title: string;
-    description: string;
-    loading: string;
-    details: string;
-    stock: string;
-    unitsAvailable: string;
-    backToProducts: string;
-    categoryElectronics: string;
-    categoryCarStereo: string;
-  };
+    title: string
+    description: string
+    loading: string
+    details: string
+    stock: string
+    unitsAvailable: string
+    backToProducts: string
+    categoryElectronics: string
+    categoryCarStereo: string
+  }
   contact: {
-    title: string;
-    description: string;
-    sendMessage: string;
-    fullName: string;
-    email: string;
-    subject: string;
-    help: string;
-    submit: string;
-  };
+    title: string
+    description: string
+    sendMessage: string
+    fullName: string
+    email: string
+    subject: string
+    help: string
+    submit: string
+  }
   cart: {
-    title: string;
-    empty: string;
-    startShopping: string;
-    proceedCheckout: string;
-    remove: string;
-    addToCart: string;
-    outOfStock: string;
-  };
+    title: string
+    empty: string
+    startShopping: string
+    proceedCheckout: string
+    remove: string
+    addToCart: string
+    outOfStock: string
+  }
   checkout: {
-    title: string;
-    customerDetails: string;
-    firstName: string;
-    lastName: string;
-    email: string;
-    address: string;
-    city: string;
-    zip: string;
-    payment: string;
-    paymentDescription: string;
-    continueToShopify: string;
-  };
+    title: string
+    customerDetails: string
+    firstName: string
+    lastName: string
+    email: string
+    address: string
+    city: string
+    zip: string
+    payment: string
+    paymentDescription: string
+    continueToShopify: string
+  }
   summary: {
-    title: string;
-    items: string;
-    shipping: string;
-    estimatedTax: string;
-    total: string;
-    free: string;
-  };
+    title: string
+    items: string
+    shipping: string
+    estimatedTax: string
+    total: string
+    free: string
+  }
   loading: {
-    page: string;
-    products: string;
-    productDetail: string;
-  };
+    page: string
+    products: string
+    productDetail: string
+  }
   notFound: {
-    productTitle: string;
-    productDescription: string;
-    backToProducts: string;
-  };
+    productTitle: string
+    productDescription: string
+    backToProducts: string
+  }
   common: {
-    close: string;
-  };
-  productDescriptions: Record<string, string>;
-};
+    close: string
+  }
+  productDescriptions: Record<string, string>
+}
 
 export const messages: Record<Locale, Messages> = {
   es: {
@@ -111,11 +111,11 @@ export const messages: Record<Locale, Messages> = {
       menuDescription: "Échale un ojo a la tienda y mueve tu carrito.",
       switchToLight: "Cambiar a claro",
       switchToDark: "Cambiar a oscuro",
-      language: "Idioma"
+      language: "Idioma",
     },
     footer: {
       blurb:
-        "Electrónica, estéreos para carro y audio personalizado para raza que le gusta traer buen sonido."
+        "Electrónica, estéreos para carro y audio personalizado para raza que le gusta traer buen sonido.",
     },
     home: {
       heroTag: "Electrónica + Audio para Carro",
@@ -127,7 +127,7 @@ export const messages: Record<Locale, Messages> = {
       featuredTitle: "Productos destacados",
       featuredDescription:
         "Renderizado en servidor con datos dummy por ahora, preparado para cambiar a consultas reales de Shopify.",
-      loadingFeatured: "Cargando productos destacados..."
+      loadingFeatured: "Cargando productos destacados...",
     },
     products: {
       title: "Todos los productos",
@@ -138,7 +138,7 @@ export const messages: Record<Locale, Messages> = {
       unitsAvailable: "unidades disponibles",
       backToProducts: "Volver a productos",
       categoryElectronics: "electrónica",
-      categoryCarStereo: "estéreo de carro"
+      categoryCarStereo: "estéreo de carro",
     },
     contact: {
       title: "Contacto",
@@ -149,7 +149,7 @@ export const messages: Record<Locale, Messages> = {
       email: "Correo",
       subject: "Asunto",
       help: "¿En qué te ayudamos?",
-      submit: "Enviar"
+      submit: "Enviar",
     },
     cart: {
       title: "Carrito de compras",
@@ -158,7 +158,7 @@ export const messages: Record<Locale, Messages> = {
       proceedCheckout: "Ir al checkout",
       remove: "Quitar",
       addToCart: "Agregar al carrito",
-      outOfStock: "Sin existencia"
+      outOfStock: "Sin existencia",
     },
     checkout: {
       title: "Checkout",
@@ -172,7 +172,7 @@ export const messages: Record<Locale, Messages> = {
       payment: "Pago",
       paymentDescription:
         "El pago se procesará en Shopify cuando conectemos el Storefront API y el flujo de checkout.",
-      continueToShopify: "Continuar a checkout de Shopify"
+      continueToShopify: "Continuar a checkout de Shopify",
     },
     summary: {
       title: "Resumen del pedido",
@@ -180,20 +180,21 @@ export const messages: Record<Locale, Messages> = {
       shipping: "Envío",
       estimatedTax: "Impuesto estimado",
       total: "Total",
-      free: "Gratis"
+      free: "Gratis",
     },
     loading: {
       page: "Cargando página...",
       products: "Cargando productos...",
-      productDetail: "Cargando detalle del producto..."
+      productDetail: "Cargando detalle del producto...",
     },
     notFound: {
       productTitle: "Producto no encontrado",
-      productDescription: "Puede que este producto ya no esté disponible o se haya retirado del catálogo.",
-      backToProducts: "Volver a productos"
+      productDescription:
+        "Puede que este producto ya no esté disponible o se haya retirado del catálogo.",
+      backToProducts: "Volver a productos",
     },
     common: {
-      close: "Cerrar"
+      close: "Cerrar",
     },
     productDescriptions: {
       "pioneer-dmh-1500nex":
@@ -207,8 +208,8 @@ export const messages: Record<Locale, Messages> = {
       "lg-oled-c4-55":
         "Pantalla OLED 4K con contraste profundo, HDMI 2.1 para gaming y color premium.",
       "alpine-ilx-507":
-        "Receptor premium con pantalla flotante, CarPlay inalámbrico, Android Auto y soporte de audio HD."
-    }
+        "Receptor premium con pantalla flotante, CarPlay inalámbrico, Android Auto y soporte de audio HD.",
+    },
   },
   en: {
     nav: {
@@ -223,11 +224,11 @@ export const messages: Record<Locale, Messages> = {
       menuDescription: "Browse the store and manage your cart.",
       switchToLight: "Switch to Light",
       switchToDark: "Switch to Dark",
-      language: "Language"
+      language: "Language",
     },
     footer: {
       blurb:
-        "Electronics, car stereos, and custom audio systems curated for daily drivers and enthusiasts."
+        "Electronics, car stereos, and custom audio systems curated for daily drivers and enthusiasts.",
     },
     home: {
       heroTag: "Electronics + Car Audio",
@@ -239,7 +240,7 @@ export const messages: Record<Locale, Messages> = {
       featuredTitle: "Featured Products",
       featuredDescription:
         "Server-rendered now with mock data, designed to swap to Shopify queries later.",
-      loadingFeatured: "Loading featured products..."
+      loadingFeatured: "Loading featured products...",
     },
     products: {
       title: "All Products",
@@ -250,7 +251,7 @@ export const messages: Record<Locale, Messages> = {
       unitsAvailable: "units available",
       backToProducts: "Back to Products",
       categoryElectronics: "electronics",
-      categoryCarStereo: "car stereo"
+      categoryCarStereo: "car stereo",
     },
     contact: {
       title: "Contact",
@@ -261,7 +262,7 @@ export const messages: Record<Locale, Messages> = {
       email: "Email",
       subject: "Subject",
       help: "How can we help?",
-      submit: "Submit"
+      submit: "Submit",
     },
     cart: {
       title: "Shopping Cart",
@@ -270,7 +271,7 @@ export const messages: Record<Locale, Messages> = {
       proceedCheckout: "Proceed to Checkout",
       remove: "Remove",
       addToCart: "Add to Cart",
-      outOfStock: "Out of Stock"
+      outOfStock: "Out of Stock",
     },
     checkout: {
       title: "Checkout",
@@ -284,7 +285,7 @@ export const messages: Record<Locale, Messages> = {
       payment: "Payment",
       paymentDescription:
         "Checkout will be handled by Shopify once Storefront API + checkout flow is connected.",
-      continueToShopify: "Continue to Shopify Checkout"
+      continueToShopify: "Continue to Shopify Checkout",
     },
     summary: {
       title: "Order Summary",
@@ -292,20 +293,20 @@ export const messages: Record<Locale, Messages> = {
       shipping: "Shipping",
       estimatedTax: "Estimated Tax",
       total: "Total",
-      free: "Free"
+      free: "Free",
     },
     loading: {
       page: "Loading page...",
       products: "Loading products...",
-      productDetail: "Loading product details..."
+      productDetail: "Loading product details...",
     },
     notFound: {
       productTitle: "Product not found",
       productDescription: "This product may be unavailable or removed from the catalog.",
-      backToProducts: "Back to Products"
+      backToProducts: "Back to Products",
     },
     common: {
-      close: "Close"
+      close: "Close",
     },
     productDescriptions: {
       "pioneer-dmh-1500nex":
@@ -319,7 +320,7 @@ export const messages: Record<Locale, Messages> = {
       "lg-oled-c4-55":
         "4K OLED panel with rich contrast, gaming-ready HDMI 2.1 ports, and premium color accuracy.",
       "alpine-ilx-507":
-        "Premium floating screen receiver with wireless CarPlay, Android Auto, and HD audio support."
-    }
-  }
-};
+        "Premium floating screen receiver with wireless CarPlay, Android Auto, and HD audio support.",
+    },
+  },
+}

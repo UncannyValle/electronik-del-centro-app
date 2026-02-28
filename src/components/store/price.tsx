@@ -1,22 +1,22 @@
-"use client";
+"use client"
 
-import { useLocale } from "@/hooks/use-locale";
-import { cn } from "@/lib/utils";
+import { useLocale } from "@/hooks/use-locale"
+import { cn } from "@/lib/utils"
 
 export function Price({
   amount,
   compareAt,
-  className
+  className,
 }: {
-  amount: number;
-  compareAt?: number;
-  className?: string;
+  amount: number
+  compareAt?: number
+  className?: string
 }) {
-  const { locale } = useLocale();
+  const { locale } = useLocale()
   const currency = new Intl.NumberFormat(locale, {
     style: "currency",
-    currency: "USD"
-  });
+    currency: "USD",
+  })
 
   return (
     <div className={cn("flex items-end gap-2", className)}>
@@ -25,5 +25,5 @@ export function Price({
         <p className="text-sm text-muted-foreground line-through">{currency.format(compareAt)}</p>
       ) : null}
     </div>
-  );
+  )
 }

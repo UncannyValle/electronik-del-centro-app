@@ -1,5 +1,5 @@
-import { useLocaleContext } from "@/context/locale-context";
+import { useLocaleContext } from "@/context/locale-context"
 
 export function useLocale() {
-  return useLocaleContext();
+  return useLocaleContext()
 }

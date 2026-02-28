@@ -1,10 +1,10 @@
-"use client";
+"use client"
 
-import { contactInfo } from "@/lib/mock-data";
-import { useLocale } from "@/hooks/use-locale";
+import { contactInfo } from "@/lib/mock-data"
+import { useLocale } from "@/hooks/use-locale"
 
 export function Footer() {
-  const { m } = useLocale();
+  const { m } = useLocale()
 
   return (
     <footer className="border-t border-border/80 bg-card/30">
@@ -21,5 +21,5 @@ export function Footer() {
         </div>
       </div>
     </footer>
-  );
+  )
 }

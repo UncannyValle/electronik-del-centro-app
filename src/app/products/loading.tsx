@@ -1,4 +1,4 @@
-import { Skeleton } from "@/components/ui/skeleton";
+import { Skeleton } from "@/components/ui/skeleton"
 
 export default function LoadingProducts() {
   const skeletonItems = [
@@ -7,8 +7,8 @@ export default function LoadingProducts() {
     "products-3",
     "products-4",
     "products-5",
-    "products-6"
-  ];
+    "products-6",
+  ]
 
   return (
     <div className="space-y-6">
@@ -27,5 +27,5 @@ export default function LoadingProducts() {
         ))}
       </div>
     </div>
-  );
+  )
 }

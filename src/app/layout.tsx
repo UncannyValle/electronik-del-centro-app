@@ -27,13 +27,7 @@ export const metadata: Metadata = {
   description: "Modern electronics and car stereo ecommerce storefront",
 }
 
-function AppChrome({
-  children,
-  locale,
-}: {
-  children: ReactNode
-  locale: Locale
-}) {
+function AppChrome({ children, locale }: { children: ReactNode; locale: Locale }) {
   return (
     <LocaleProvider initialLocale={locale}>
       <CartProvider>
@@ -47,11 +41,7 @@ function AppChrome({
   )
 }
 
-async function RuntimeLayout({
-  children,
-}: {
-  children: ReactNode
-}) {
+async function RuntimeLayout({ children }: { children: ReactNode }) {
   const locale = await getServerLocale()
   return <AppChrome locale={locale}>{children}</AppChrome>
 }

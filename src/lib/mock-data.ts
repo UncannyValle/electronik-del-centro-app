@@ -1,11 +1,11 @@
-import type { ContactInfo, Product } from "@/lib/types";
+import type { ContactInfo, Product } from "@/lib/types"
 
 export const contactInfo: ContactInfo = {
   phone: "+1 (562) 555-0142",
   email: "sales@electronikdelcentro.com",
   addressLine1: "13245 Firestone Blvd",
-  cityStateZip: "Norwalk, CA 90650"
-};
+  cityStateZip: "Norwalk, CA 90650",
+}
 
 export const products: Product[] = [
   {
@@ -20,7 +20,7 @@ export const products: Product[] = [
     image:
       "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=1200&q=80",
     stock: 14,
-    featured: true
+    featured: true,
   },
   {
     id: "kenwood-excelon-x802-5",
@@ -33,7 +33,7 @@ export const products: Product[] = [
     image:
       "https://images.unsplash.com/photo-1486006920555-c77dcf18193c?auto=format&fit=crop&w=1200&q=80",
     stock: 8,
-    featured: true
+    featured: true,
   },
   {
     id: "sony-wh-1000xm6",
@@ -46,7 +46,7 @@ export const products: Product[] = [
     image:
       "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=1200&q=80",
     stock: 26,
-    featured: true
+    featured: true,
   },
   {
     id: "jbl-basspro-hub",
@@ -58,20 +58,19 @@ export const products: Product[] = [
     price: 549.95,
     image:
       "https://images.unsplash.com/photo-1510070009289-b5bc34383727?auto=format&fit=crop&w=1200&q=80",
-    stock: 6
+    stock: 6,
   },
   {
     id: "lg-oled-c4-55",
     handle: "lg-oled-c4-55",
-    title: "LG OLED C4 55\"",
-    description:
-      "Pantalla OLED 4K con contraste profundo, HDMI 2.1 para gaming y color premium.",
+    title: 'LG OLED C4 55"',
+    description: "Pantalla OLED 4K con contraste profundo, HDMI 2.1 para gaming y color premium.",
     category: "electronics",
     price: 1299.99,
     compareAtPrice: 1499.99,
     image:
       "https://images.unsplash.com/photo-1593784991095-a205069470b6?auto=format&fit=crop&w=1200&q=80",
-    stock: 4
+    stock: 4,
   },
   {
     id: "alpine-ilx-507",
@@ -83,6 +82,6 @@ export const products: Product[] = [
     price: 699.0,
     image:
       "https://images.unsplash.com/photo-1542296332-2e4473faf563?auto=format&fit=crop&w=1200&q=80",
-    stock: 11
-  }
-];
+    stock: 11,
+  },
+]

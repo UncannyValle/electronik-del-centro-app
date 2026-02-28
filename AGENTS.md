@@ -29,6 +29,12 @@
 - Ensure responsive layout with mobile-first Tailwind classes.
 - Navbar: desktop links visible, tablet/mobile links in hamburger menu.
 
+## Biome Formatting
+- Use Biome as the source of truth for formatting and linting.
+- Follow Biome defaults for TypeScript/JavaScript formatting (quotes, semicolons, trailing commas, import ordering) instead of ad-hoc style choices.
+- When editing files, keep formatting Biome-compliant and avoid style-only churn outside the touched scope.
+- Use `pnpm run format` for formatting and `pnpm run lint` for lint validation.
+
 ## MCP / Context7 Usage
 - Use `next-devtools` MCP for Next.js runtime diagnostics, routing issues, server/client boundary debugging, and App Router behavior validation before making speculative fixes.
 - Use `shopify-dev-mcp` for Shopify integration tasks (Storefront API schema/query checks, cart/checkout flows, product/variant data mapping, and auth/config validation).
@@ -62,6 +68,7 @@
 
 ## Quality Checks
 - Before finalizing changes, run:
+  - `pnpm run format`
   - `pnpm run typecheck`
   - `pnpm run lint`
   - `pnpm run build` (for release-level confidence)

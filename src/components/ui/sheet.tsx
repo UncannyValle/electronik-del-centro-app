@@ -1,40 +1,35 @@
-"use client";
+"use client"
 
 import {
   forwardRef,
   type ComponentPropsWithoutRef,
   type ComponentRef,
-  type HTMLAttributes
-} from "react";
-import * as Dialog from "@radix-ui/react-dialog";
-import { X } from "lucide-react";
+  type HTMLAttributes,
+} from "react"
+import * as Dialog from "@radix-ui/react-dialog"
+import { X } from "lucide-react"
 
-import { useLocale } from "@/hooks/use-locale";
-import { cn } from "@/lib/utils";
+import { useLocale } from "@/hooks/use-locale"
+import { cn } from "@/lib/utils"
 
-const Sheet = Dialog.Root;
-const SheetTrigger = Dialog.Trigger;
-const SheetClose = Dialog.Close;
+const Sheet = Dialog.Root
+const SheetTrigger = Dialog.Trigger
+const SheetClose = Dialog.Close
 
-const SheetPortal = ({ ...props }: Dialog.DialogPortalProps) => (
-  <Dialog.Portal {...props} />
-);
-SheetPortal.displayName = Dialog.Portal.displayName;
+const SheetPortal = ({ ...props }: Dialog.DialogPortalProps) => <Dialog.Portal {...props} />
+SheetPortal.displayName = Dialog.Portal.displayName
 
 const SheetOverlay = forwardRef<
   ComponentRef<typeof Dialog.Overlay>,
   ComponentPropsWithoutRef<typeof Dialog.Overlay>
 >(({ className, ...props }, ref) => (
   <Dialog.Overlay
-    className={cn(
-      "fixed inset-0 z-50 bg-black/50 backdrop-blur-[1px]",
-      className
-    )}
+    className={cn("fixed inset-0 z-50 bg-black/50 backdrop-blur-[1px]", className)}
     {...props}
     ref={ref}
   />
-));
-SheetOverlay.displayName = Dialog.Overlay.displayName;
+))
+SheetOverlay.displayName = Dialog.Overlay.displayName
 
 const SheetContent = forwardRef<
   ComponentRef<typeof Dialog.Content>,
@@ -43,14 +38,14 @@ const SheetContent = forwardRef<
   <SheetContentInner className={className} ref={ref} {...props}>
     {children}
   </SheetContentInner>
-));
-SheetContent.displayName = Dialog.Content.displayName;
+))
+SheetContent.displayName = Dialog.Content.displayName
 
 const SheetContentInner = forwardRef<
   ComponentRef<typeof Dialog.Content>,
   ComponentPropsWithoutRef<typeof Dialog.Content>
 >(({ className, children, ...props }, ref) => {
-  const { m } = useLocale();
+  const { m } = useLocale()
 
   return (
     <SheetPortal>
@@ -59,7 +54,7 @@ const SheetContentInner = forwardRef<
         ref={ref}
         className={cn(
           "fixed inset-y-0 right-0 z-50 w-[85vw] max-w-sm border-l border-border bg-background p-6 shadow-lg",
-          className
+          className,
         )}
         {...props}
       >
@@ -70,22 +65,22 @@ const SheetContentInner = forwardRef<
         </SheetClose>
       </Dialog.Content>
     </SheetPortal>
-  );
-});
-SheetContentInner.displayName = "SheetContentInner";
+  )
+})
+SheetContentInner.displayName = "SheetContentInner"
 
 const SheetHeader = ({ className, ...props }: HTMLAttributes<HTMLDivElement>) => (
   <div className={cn("flex flex-col space-y-1.5 text-left", className)} {...props} />
-);
-SheetHeader.displayName = "SheetHeader";
+)
+SheetHeader.displayName = "SheetHeader"
 
 const SheetTitle = forwardRef<
   ComponentRef<typeof Dialog.Title>,
   ComponentPropsWithoutRef<typeof Dialog.Title>
 >(({ className, ...props }, ref) => (
   <Dialog.Title ref={ref} className={cn("text-lg font-semibold", className)} {...props} />
-));
-SheetTitle.displayName = Dialog.Title.displayName;
+))
+SheetTitle.displayName = Dialog.Title.displayName
 
 const SheetDescription = forwardRef<
   ComponentRef<typeof Dialog.Description>,
@@ -96,8 +91,8 @@ const SheetDescription = forwardRef<
     className={cn("text-sm text-muted-foreground", className)}
     {...props}
   />
-));
-SheetDescription.displayName = Dialog.Description.displayName;
+))
+SheetDescription.displayName = Dialog.Description.displayName
 
 export {
   Sheet,
@@ -107,5 +102,5 @@ export {
   SheetHeader,
   SheetPortal,
   SheetTitle,
-  SheetTrigger
-};
+  SheetTrigger,
+}

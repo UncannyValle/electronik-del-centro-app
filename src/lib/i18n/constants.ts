@@ -1,1 +1,1 @@
-export const LOCALE_COOKIE = "edc-locale";
+export const LOCALE_COOKIE = "edc-locale"

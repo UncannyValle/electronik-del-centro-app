@@ -1,10 +1,10 @@
-import Link from "next/link";
+import Link from "next/link"
 
-import { Button } from "@/components/ui/button";
-import { messages } from "@/lib/i18n/messages";
+import { Button } from "@/components/ui/button"
+import { messages } from "@/lib/i18n/messages"
 
 export default function NotFoundProduct() {
-  const m = messages.es;
+  const m = messages.es
 
   return (
     <div className="space-y-4">
@@ -14,5 +14,5 @@ export default function NotFoundProduct() {
         <Link href="/products">{m.notFound.backToProducts}</Link>
       </Button>
     </div>
-  );
+  )
 }

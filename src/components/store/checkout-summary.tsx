@@ -1,20 +1,20 @@
-"use client";
+"use client"
 
-import { useCart } from "@/hooks/use-cart";
-import { useLocale } from "@/hooks/use-locale";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
+import { useCart } from "@/hooks/use-cart"
+import { useLocale } from "@/hooks/use-locale"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Separator } from "@/components/ui/separator"
 
 export function CheckoutSummary() {
-  const { itemCount, subtotal } = useCart();
-  const { locale, m } = useLocale();
-  const shipping = subtotal > 500 ? 0 : 19.99;
-  const tax = subtotal * 0.0825;
-  const total = subtotal + shipping + tax;
+  const { itemCount, subtotal } = useCart()
+  const { locale, m } = useLocale()
+  const shipping = subtotal > 500 ? 0 : 19.99
+  const tax = subtotal * 0.0825
+  const total = subtotal + shipping + tax
   const currency = new Intl.NumberFormat(locale, {
     style: "currency",
-    currency: "USD"
-  });
+    currency: "USD",
+  })
 
   return (
     <Card>
@@ -23,7 +23,9 @@ export function CheckoutSummary() {
       </CardHeader>
       <CardContent className="space-y-3">
         <div className="flex items-center justify-between text-sm">
-          <span className="text-muted-foreground">{m.summary.items} ({itemCount})</span>
+          <span className="text-muted-foreground">
+            {m.summary.items} ({itemCount})
+          </span>
           <span>{currency.format(subtotal)}</span>
         </div>
         <div className="flex items-center justify-between text-sm">
@@ -41,5 +43,5 @@ export function CheckoutSummary() {
         </div>
       </CardContent>
     </Card>
-  );
+  )
 }

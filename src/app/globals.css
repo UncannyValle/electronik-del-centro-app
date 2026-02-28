@@ -88,5 +88,9 @@ body {
 
 body {
   @apply bg-background text-foreground antialiased;
-  background-image: radial-gradient(circle at top, color-mix(in oklab, var(--primary) 14%, transparent), transparent 40%);
+  background-image: radial-gradient(
+    circle at top,
+    color-mix(in oklab, var(--primary) 14%, transparent),
+    transparent 40%
+  );
 }

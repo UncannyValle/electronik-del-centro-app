@@ -1,33 +1,33 @@
-"use client";
+"use client"
 
-import Link from "next/link";
-import { Menu, Moon, ShoppingCart, Sun } from "lucide-react";
-import { useTheme } from "next-themes";
+import Link from "next/link"
+import { Menu, Moon, ShoppingCart, Sun } from "lucide-react"
+import { useTheme } from "next-themes"
 
-import { useCart } from "@/hooks/use-cart";
-import { useLocale } from "@/hooks/use-locale";
-import { Button } from "@/components/ui/button";
+import { useCart } from "@/hooks/use-cart"
+import { useLocale } from "@/hooks/use-locale"
+import { Button } from "@/components/ui/button"
 import {
   Sheet,
   SheetContent,
   SheetDescription,
   SheetHeader,
   SheetTitle,
-  SheetTrigger
-} from "@/components/ui/sheet";
+  SheetTrigger,
+} from "@/components/ui/sheet"
 
 export function Navbar() {
-  const { setTheme, resolvedTheme } = useTheme();
-  const { itemCount } = useCart();
-  const { locale, m, setLocale } = useLocale();
-  const nextLocale = locale === "es" ? "en" : "es";
+  const { setTheme, resolvedTheme } = useTheme()
+  const { itemCount } = useCart()
+  const { locale, m, setLocale } = useLocale()
+  const nextLocale = locale === "es" ? "en" : "es"
   const navLinks = [
     { href: "/", label: m.nav.home },
     { href: "/products", label: m.nav.products },
     { href: "/contact", label: m.nav.contact },
     { href: "/cart", label: m.nav.cart },
-    { href: "/checkout", label: m.nav.checkout }
-  ];
+    { href: "/checkout", label: m.nav.checkout },
+  ]
 
   return (
     <nav className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-3 lg:px-6">
@@ -107,5 +107,5 @@ export function Navbar() {
         </Sheet>
       </div>
     </nav>
-  );
+  )
 }
