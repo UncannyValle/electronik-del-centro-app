@@ -1,8 +1,10 @@
-import { contactInfo } from "@/lib/mock-data";
-import { getServerMessages } from "@/lib/i18n/server";
+"use client";
 
-export async function Footer() {
-  const { m } = await getServerMessages();
+import { contactInfo } from "@/lib/mock-data";
+import { useLocale } from "@/hooks/use-locale";
+
+export function Footer() {
+  const { m } = useLocale();
 
   return (
     <footer className="border-t border-border/80 bg-card/30">

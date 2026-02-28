@@ -1,32 +1,29 @@
-import Image from "next/image";
-import Link from "next/link";
-import { notFound } from "next/navigation";
+import Image from "next/image"
+import Link from "next/link"
+import { notFound } from "next/navigation"
+import { Suspense } from "react"
 
-import { AddToCartButton } from "@/components/store/add-to-cart-button";
-import { Price } from "@/components/store/price";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { getServerMessages } from "@/lib/i18n/server";
-import { storefront } from "@/lib/storefront";
+import { AddToCartButton } from "@/components/store/add-to-cart-button"
+import { Price } from "@/components/store/price"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { getServerMessages } from "@/lib/i18n/server"
+import { storefront } from "@/lib/storefront"
+import { ProductDetailLoadingSkeleton } from "./loading"
 
-export default async function ProductDetailPage({
-  params
-}: {
-  params: Promise<{ handle: string }>;
-}) {
-  const { m } = await getServerMessages();
-  const { handle } = await params;
-  const product = await storefront.getProductByHandle(handle);
+async function ProductDetailContent({ handle }: { handle: string }) {
+  const { m } = await getServerMessages()
+  const product = await storefront.getProductByHandle(handle)
 
   if (!product) {
-    notFound();
+    notFound()
   }
 
   const categoryLabel =
     product.category === "electronics"
       ? m.products.categoryElectronics
-      : m.products.categoryCarStereo;
-  const description = m.productDescriptions[product.id] ?? product.description;
+      : m.products.categoryCarStereo
+  const description = m.productDescriptions[product.id] ?? product.description
 
   return (
     <div className="grid gap-8 lg:grid-cols-[1.2fr_1fr] lg:items-start">
@@ -51,5 +48,15 @@ export default async function ProductDetailPage({
         </div>
       </div>
     </div>
-  );
+  )
+}
+
+export default function ProductDetailPage({ params }: { params: Promise<{ handle: string }> }) {
+  return (
+    <Suspense fallback={<ProductDetailLoadingSkeleton />}>
+      {params.then(({ handle }) => (
+        <ProductDetailContent handle={handle} />
+      ))}
+    </Suspense>
+  )
 }

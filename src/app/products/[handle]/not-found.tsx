@@ -1,10 +1,10 @@
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
-import { getServerMessages } from "@/lib/i18n/server";
+import { messages } from "@/lib/i18n/messages";
 
-export default async function NotFoundProduct() {
-  const { m } = await getServerMessages();
+export default function NotFoundProduct() {
+  const m = messages.es;
 
   return (
     <div className="space-y-4">

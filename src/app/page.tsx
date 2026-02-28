@@ -5,6 +5,7 @@ import { ProductCard } from "@/components/store/product-card"
 import { Button } from "@/components/ui/button"
 import { getServerMessages } from "@/lib/i18n/server"
 import { storefront } from "@/lib/storefront"
+import Loading from "./loading"
 
 async function FeaturedProducts() {
   const products = await storefront.getFeaturedProducts()
@@ -52,9 +53,7 @@ export default async function HomePage() {
             <p className="text-sm text-muted-foreground">{m.home.featuredDescription}</p>
           </div>
         </div>
-        <Suspense
-          fallback={<p className="text-sm text-muted-foreground">{m.home.loadingFeatured}</p>}
-        >
+        <Suspense fallback={<Loading />}>
           <FeaturedProducts />
         </Suspense>
       </section>
