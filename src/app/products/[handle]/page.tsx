@@ -8,6 +8,7 @@ import { Price } from "@/components/store/price"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { getServerMessages } from "@/lib/i18n/server"
+import { normalizeImageSrc } from "@/lib/image"
 import { storefront } from "@/lib/storefront"
 import { ProductDetailLoadingSkeleton } from "./loading"
 
@@ -28,7 +29,13 @@ async function ProductDetailContent({ handle }: { handle: string }) {
   return (
     <div className="grid gap-8 lg:grid-cols-[1.2fr_1fr] lg:items-start">
       <div className="relative aspect-4/3 overflow-hidden rounded-xl border border-border">
-        <Image src={product.image} alt={product.title} fill className="object-cover" priority />
+        <Image
+          src={normalizeImageSrc(product.image)}
+          alt={product.title}
+          fill
+          className="object-cover"
+          priority
+        />
       </div>
       <div className="space-y-5">
         <Badge variant="secondary" className="capitalize">

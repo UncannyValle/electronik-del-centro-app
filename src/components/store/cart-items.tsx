@@ -1,20 +1,21 @@
-"use client";
+"use client"
 
-import Image from "next/image";
-import Link from "next/link";
+import Image from "next/image"
+import Link from "next/link"
 
-import { useCart } from "@/hooks/use-cart";
-import { useLocale } from "@/hooks/use-locale";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { useCart } from "@/hooks/use-cart"
+import { normalizeImageSrc } from "@/lib/image"
+import { useLocale } from "@/hooks/use-locale"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
 
 export function CartItems() {
-  const { state, dispatch } = useCart();
-  const { locale, m } = useLocale();
+  const { state, dispatch } = useCart()
+  const { locale, m } = useLocale()
   const currency = new Intl.NumberFormat(locale, {
     style: "currency",
-    currency: "USD"
-  });
+    currency: "USD",
+  })
 
   if (state.items.length === 0) {
     return (
@@ -26,7 +27,7 @@ export function CartItems() {
           </Button>
         </CardContent>
       </Card>
-    );
+    )
   }
 
   return (
@@ -36,7 +37,12 @@ export function CartItems() {
           <CardContent className="flex flex-col gap-4 pt-6 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-center gap-4">
               <div className="relative h-20 w-20 overflow-hidden rounded-md">
-                <Image src={item.image} alt={item.title} fill className="object-cover" />
+                <Image
+                  src={normalizeImageSrc(item.image)}
+                  alt={item.title}
+                  fill
+                  className="object-cover"
+                />
               </div>
               <div>
                 <p className="font-semibold">{item.title}</p>
@@ -51,7 +57,7 @@ export function CartItems() {
                 onClick={() =>
                   dispatch({
                     type: "updateQuantity",
-                    payload: { productId: item.productId, quantity: item.quantity - 1 }
+                    payload: { productId: item.productId, quantity: item.quantity - 1 },
                   })
                 }
               >
@@ -64,7 +70,7 @@ export function CartItems() {
                 onClick={() =>
                   dispatch({
                     type: "updateQuantity",
-                    payload: { productId: item.productId, quantity: item.quantity + 1 }
+                    payload: { productId: item.productId, quantity: item.quantity + 1 },
                   })
                 }
               >
@@ -76,7 +82,7 @@ export function CartItems() {
                 onClick={() =>
                   dispatch({
                     type: "remove",
-                    payload: { productId: item.productId }
+                    payload: { productId: item.productId },
                   })
                 }
               >
@@ -87,5 +93,5 @@ export function CartItems() {
         </Card>
       ))}
     </div>
-  );
+  )
 }

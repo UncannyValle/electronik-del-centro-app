@@ -1,35 +1,36 @@
-"use client";
+"use client"
 
-import Image from "next/image";
-import Link from "next/link";
+import Image from "next/image"
+import Link from "next/link"
 
-import { useLocale } from "@/hooks/use-locale";
-import type { Product } from "@/lib/types";
-import { AddToCartButton } from "@/components/store/add-to-cart-button";
-import { Price } from "@/components/store/price";
-import { Badge } from "@/components/ui/badge";
+import { useLocale } from "@/hooks/use-locale"
+import { normalizeImageSrc } from "@/lib/image"
+import type { Product } from "@/lib/types"
+import { AddToCartButton } from "@/components/store/add-to-cart-button"
+import { Price } from "@/components/store/price"
+import { Badge } from "@/components/ui/badge"
 import {
   Card,
   CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle
-} from "@/components/ui/card";
+  CardTitle,
+} from "@/components/ui/card"
 
 export function ProductCard({ product }: { product: Product }) {
-  const { m } = useLocale();
+  const { m } = useLocale()
   const categoryLabel =
     product.category === "electronics"
       ? m.products.categoryElectronics
-      : m.products.categoryCarStereo;
-  const description = m.productDescriptions[product.id] ?? product.description;
+      : m.products.categoryCarStereo
+  const description = m.productDescriptions[product.id] ?? product.description
 
   return (
     <Card className="overflow-hidden">
       <div className="relative aspect-[4/3]">
         <Image
-          src={product.image}
+          src={normalizeImageSrc(product.image)}
           alt={product.title}
           fill
           className="object-cover"
@@ -61,5 +62,5 @@ export function ProductCard({ product }: { product: Product }) {
         </Link>
       </CardFooter>
     </Card>
-  );
+  )
 }
