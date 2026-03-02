@@ -9,6 +9,12 @@ import { useLocale } from "@/hooks/use-locale"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 
+export function CartHeading() {
+  const { itemCount } = useCart()
+
+  return <h1 className="font-heading text-3xl font-bold">Tu carrito ({itemCount} artículos)</h1>
+}
+
 export function CartItems() {
   const { state, dispatch } = useCart()
   const { locale, m } = useLocale()
@@ -20,10 +26,10 @@ export function CartItems() {
   if (state.items.length === 0) {
     return (
       <Card>
-        <CardContent className="pt-6">
-          <p className="text-muted-foreground">{m.cart.empty}</p>
-          <Button asChild className="mt-4">
-            <Link href="/products">{m.cart.startShopping}</Link>
+        <CardContent className="pt-6 text-center">
+          <p className="text-lg font-semibold">{m.cart.empty}</p>
+          <Button asChild className="mt-6">
+            <Link href="/products">{m.cart.startShopping} →</Link>
           </Button>
         </CardContent>
       </Card>
@@ -46,7 +52,12 @@ export function CartItems() {
               </div>
               <div>
                 <p className="font-semibold">{item.title}</p>
-                <p className="text-sm text-muted-foreground">{currency.format(item.price)}</p>
+                <p className="text-sm text-muted-foreground">
+                  Variante: {item.handle.split("-").slice(-2).join(" ").toUpperCase()}
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  Precio: {currency.format(item.price * item.quantity)}
+                </p>
               </div>
             </div>
 
