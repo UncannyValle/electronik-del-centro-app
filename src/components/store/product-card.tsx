@@ -24,7 +24,14 @@ export function ProductCard({ product }: { product: Product }) {
       ? m.products.categoryElectronics
       : m.products.categoryCarStereo
   const description =
-    m.productDescriptions[product.handle] ?? m.productDescriptions[product.id] ?? product.description
+    m.productDescriptions[product.handle] ??
+    m.productDescriptions[product.id] ??
+    product.description
+  const variantDescriptor = product.compareAtPrice
+    ? "Versión en oferta"
+    : product.stock > 10
+      ? "Entrega inmediata"
+      : "Últimas piezas"
 
   return (
     <Card className="overflow-hidden">
@@ -47,6 +54,7 @@ export function ProductCard({ product }: { product: Product }) {
           </span>
         </div>
         <CardTitle className="line-clamp-1">{product.title}</CardTitle>
+        <p className="text-xs font-medium text-muted-foreground">{variantDescriptor}</p>
         <CardDescription className="line-clamp-2">{description}</CardDescription>
       </CardHeader>
       <CardContent>

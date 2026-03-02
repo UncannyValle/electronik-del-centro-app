@@ -11,18 +11,16 @@ function normalizeLocale(locale: string | null | undefined): Locale | null {
   return short === "en" ? "en" : short === "es" ? "es" : null
 }
 
-function localeFromAcceptLanguage(value: string | null): Locale {
-  const normalized = normalizeLocale(value)
-  return normalized ?? "es"
-}
-
 export async function getServerLocale(): Promise<Locale> {
   const cookieStore = await cookies()
   const cookieLocale = normalizeLocale(cookieStore.get(LOCALE_COOKIE)?.value)
   if (cookieLocale) return cookieLocale
 
   const headerStore = await headers()
-  return localeFromAcceptLanguage(headerStore.get("accept-language"))
+  const headerLocale = normalizeLocale(headerStore.get("accept-language"))
+  if (headerLocale === "es") return "es"
+
+  return "es"
 }
 
 export async function getServerMessages() {

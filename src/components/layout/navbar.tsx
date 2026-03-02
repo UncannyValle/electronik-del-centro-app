@@ -1,6 +1,6 @@
 "use client"
 
-import { Menu, Moon, ShoppingCart, Sun } from "lucide-react"
+import { Heart, Menu, Moon, Search, ShoppingCart, Sun } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { useTheme } from "next-themes"
@@ -22,7 +22,10 @@ export function Navbar() {
   const { locale, m, setLocale } = useLocale()
   const nextLocale = locale === "es" ? "en" : "es"
   const navLinks = [
+    { href: "/", label: m.nav.home },
     { href: "/products", label: m.nav.products },
+    { href: "/products?featured=true", label: m.nav.offers },
+    { href: "/about", label: m.nav.about },
     { href: "/contact", label: m.nav.contact },
   ]
 
@@ -36,8 +39,8 @@ export function Navbar() {
           height={64}
           className="rounded-full"
         />
-        <span className="text-sm font-bold uppercase tracking-wider text-foreground/90 sm:text-base">
-          electronik del centro
+        <span className="text-sm font-bold tracking-wide text-foreground/90 sm:text-base">
+          Electronik Del Centro
         </span>
       </Link>
 
@@ -64,10 +67,22 @@ export function Navbar() {
         >
           {nextLocale.toUpperCase()}
         </Button>
-        <Button asChild variant="outline" size="sm" className="gap-1">
-          <Link href="/cart">
+        <Button asChild variant="outline" size="icon" aria-label={m.products.searchPlaceholder}>
+          <Link href="/products">
+            <Search className="h-4 w-4" />
+          </Link>
+        </Button>
+        <Button asChild variant="outline" size="icon" aria-label="Favoritos">
+          <Link href="/products?wishlist=true">
+            <Heart className="h-4 w-4" />
+          </Link>
+        </Button>
+        <Button asChild variant="outline" size="icon" className="relative">
+          <Link href="/cart" aria-label={m.nav.cart}>
             <ShoppingCart className="h-4 w-4" />
-            {itemCount}
+            <span className="absolute -top-2 -right-2 inline-flex min-h-5 min-w-5 items-center justify-center rounded-full bg-primary px-1 text-[10px] font-bold text-primary-foreground">
+              {itemCount}
+            </span>
           </Link>
         </Button>
       </div>
@@ -95,6 +110,18 @@ export function Navbar() {
                   <Link href="/cart">
                     <ShoppingCart className="h-4 w-4" />
                     {m.nav.cart} ({itemCount})
+                  </Link>
+                </Button>
+                <Button asChild variant="ghost" className="justify-start gap-2">
+                  <Link href="/products">
+                    <Search className="h-4 w-4" />
+                    Buscar
+                  </Link>
+                </Button>
+                <Button asChild variant="ghost" className="justify-start gap-2">
+                  <Link href="/products?wishlist=true">
+                    <Heart className="h-4 w-4" />
+                    Favoritos
                   </Link>
                 </Button>
               </div>
