@@ -1,10 +1,11 @@
 import Image from "next/image"
-import Link from "next/link"
 import { notFound } from "next/navigation"
 import { Suspense } from "react"
 
 import { AddToCartButton } from "@/components/store/add-to-cart-button"
+import { ProductDetailTabs } from "@/components/store/product-detail-tabs"
 import { Price } from "@/components/store/price"
+import { ProductCard } from "@/components/store/product-card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { getServerMessages } from "@/lib/i18n/server"
@@ -15,45 +16,128 @@ import { ProductDetailLoadingSkeleton } from "./loading"
 async function ProductDetailContent({ handle }: { handle: string }) {
   const { m } = await getServerMessages()
   const product = await storefront.getProductByHandle(handle)
+  const allProducts = await storefront.getProducts()
 
   if (!product) {
     notFound()
   }
 
+  const relatedProducts = allProducts.filter((candidate) => candidate.id !== product.id).slice(0, 4)
   const categoryLabel =
     product.category === "electronics"
       ? m.products.categoryElectronics
       : m.products.categoryCarStereo
   const description = m.productDescriptions[product.id] ?? product.description
+  const brand = product.title.split(" ")[0]
+  const tagline = description.split(".")[0]
+  const rating = (4.2 + (product.id.length % 7) / 10).toFixed(1)
+  const hasSale = Boolean(product.compareAtPrice && product.compareAtPrice > product.price)
+  const highlights = description
+    .split(",")
+    .map((item) => item.trim())
+    .filter(Boolean)
+    .slice(0, 4)
 
   return (
-    <div className="grid gap-8 lg:grid-cols-[1.2fr_1fr] lg:items-start">
-      <div className="relative aspect-4/3 overflow-hidden rounded-xl border border-border">
-        <Image
-          src={normalizeImageSrc(product.image)}
-          alt={product.title}
-          fill
-          className="object-cover"
-          priority
-        />
-      </div>
-      <div className="space-y-5">
-        <Badge variant="secondary" className="capitalize">
-          {categoryLabel}
-        </Badge>
-        <h1 className="font-heading text-3xl font-bold">{product.title}</h1>
-        <p className="text-muted-foreground">{description}</p>
-        <Price amount={product.price} compareAt={product.compareAtPrice} />
-        <p className="text-sm text-muted-foreground">
-          {product.stock} {m.products.unitsAvailable}
-        </p>
-        <div className="flex flex-wrap gap-3">
-          <AddToCartButton product={product} />
-          <Button asChild variant="outline">
-            <Link href="/products">{m.products.backToProducts}</Link>
-          </Button>
+    <div className="space-y-10">
+      <div className="grid gap-8 lg:grid-cols-[1.2fr_1fr] lg:items-start">
+        <div className="space-y-3">
+          <div className="relative aspect-4/3 overflow-hidden rounded-xl border border-border">
+            <Image
+              src={normalizeImageSrc(product.image)}
+              alt={product.title}
+              fill
+              className="object-cover"
+              priority
+            />
+          </div>
+          <div className="grid grid-cols-3 gap-3">
+            <div className="relative aspect-square overflow-hidden rounded-md border border-border">
+              <Image
+                src={normalizeImageSrc(product.image)}
+                alt={product.title}
+                fill
+                className="object-cover"
+              />
+            </div>
+            <div className="relative aspect-square overflow-hidden rounded-md border border-border">
+              <Image
+                src={normalizeImageSrc(product.image)}
+                alt={product.title}
+                fill
+                className="object-cover"
+              />
+            </div>
+            <div className="relative aspect-square overflow-hidden rounded-md border border-border">
+              <Image
+                src={normalizeImageSrc(product.image)}
+                alt={product.title}
+                fill
+                className="object-cover"
+              />
+            </div>
+          </div>
+        </div>
+        <div className="space-y-5">
+          <p className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+            Marca: {brand}
+          </p>
+          <Badge variant="secondary" className="capitalize">
+            {categoryLabel}
+          </Badge>
+          <h1 className="font-heading text-3xl font-bold">{product.title}</h1>
+          <p className="text-muted-foreground">{tagline}</p>
+          <p className="text-sm text-amber-500">
+            {"★".repeat(4)}☆ {rating}
+          </p>
+          <div className="space-y-2">
+            <Price amount={product.price} compareAt={product.compareAtPrice} />
+            {hasSale ? (
+              <p className="text-sm font-medium text-emerald-600">Ahorra hoy con precio especial</p>
+            ) : null}
+          </div>
+          <div className="space-y-2">
+            <p className="text-sm font-semibold">Variantes</p>
+            <div className="flex flex-wrap gap-2">
+              <Button type="button" variant="outline" size="sm">
+                Estándar
+              </Button>
+              <Button type="button" variant="outline" size="sm">
+                Premium
+              </Button>
+              <Button type="button" variant="outline" size="sm">
+                Edición especial
+              </Button>
+            </div>
+          </div>
+          <p className="text-sm text-muted-foreground">
+            {product.stock} {m.products.unitsAvailable}
+          </p>
+          <div className="flex flex-wrap gap-3">
+            <AddToCartButton product={product} />
+            <Button type="button" variant="outline">
+              Guardar para después
+            </Button>
+          </div>
         </div>
       </div>
+
+      <ProductDetailTabs
+        brand={brand}
+        categoryLabel={categoryLabel}
+        stock={product.stock}
+        model={product.handle.toUpperCase()}
+        highlights={highlights}
+      />
+
+      <section className="space-y-4">
+        <h2 className="font-heading text-2xl font-bold">También te puede interesar</h2>
+        <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+          {relatedProducts.map((relatedProduct) => (
+            <ProductCard key={relatedProduct.id} product={relatedProduct} />
+          ))}
+        </div>
+      </section>
     </div>
   )
 }
