@@ -33,6 +33,8 @@ type Messages = {
   products: {
     title: string
     description: string
+    searchPlaceholder: string
+    noResults: string
     loading: string
     details: string
     stock: string
@@ -132,6 +134,8 @@ export const messages: Record<Locale, Messages> = {
     products: {
       title: "Todos los productos",
       description: "Explora electrónica y estéreos para carro en inventario.",
+      searchPlaceholder: "Buscar por título o descripción...",
+      noResults: "No encontramos productos con esa búsqueda.",
       loading: "Cargando productos...",
       details: "Ver detalle",
       stock: "Existencia",
@@ -245,6 +249,8 @@ export const messages: Record<Locale, Messages> = {
     products: {
       title: "All Products",
       description: "Explore electronics and car stereo inventory.",
+      searchPlaceholder: "Search by title or description...",
+      noResults: "No products matched your search.",
       loading: "Loading products...",
       details: "Details",
       stock: "Stock",

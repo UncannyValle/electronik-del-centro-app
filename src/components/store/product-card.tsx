@@ -23,7 +23,8 @@ export function ProductCard({ product }: { product: Product }) {
     product.category === "electronics"
       ? m.products.categoryElectronics
       : m.products.categoryCarStereo
-  const description = m.productDescriptions[product.id] ?? product.description
+  const description =
+    m.productDescriptions[product.handle] ?? m.productDescriptions[product.id] ?? product.description
 
   return (
     <Card className="overflow-hidden">

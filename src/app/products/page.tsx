@@ -1,19 +1,12 @@
 import { Suspense } from "react"
-import { ProductCard } from "@/components/store/product-card"
+import { ProductSearchGrid } from "@/components/store/product-search-grid"
 import { getServerMessages } from "@/lib/i18n/server"
 import { storefront } from "@/lib/storefront"
 import LoadingProducts from "./loading"
 
 async function ProductsGrid() {
   const products = await storefront.getProducts()
-
-  return (
-    <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
-      {products.map((product) => (
-        <ProductCard key={product.id} product={product} />
-      ))}
-    </div>
-  )
+  return <ProductSearchGrid products={products} />
 }
 
 export default async function ProductsPage() {
