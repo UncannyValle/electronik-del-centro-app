@@ -2,10 +2,6 @@
 
 import Image from "next/image"
 import Link from "next/link"
-
-import { useLocale } from "@/hooks/use-locale"
-import { normalizeImageSrc } from "@/lib/image"
-import type { Product } from "@/lib/types"
 import { AddToCartButton } from "@/components/store/add-to-cart-button"
 import { Price } from "@/components/store/price"
 import { Badge } from "@/components/ui/badge"
@@ -17,6 +13,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { useLocale } from "@/hooks/use-locale"
+import { normalizeImageSrc } from "@/lib/image"
+import type { Product } from "@/lib/types"
 
 export function ProductCard({ product }: { product: Product }) {
   const { m } = useLocale()
@@ -28,7 +27,7 @@ export function ProductCard({ product }: { product: Product }) {
 
   return (
     <Card className="overflow-hidden">
-      <div className="relative aspect-[4/3]">
+      <div className="relative aspect-4/3">
         <Image
           src={normalizeImageSrc(product.image)}
           alt={product.title}

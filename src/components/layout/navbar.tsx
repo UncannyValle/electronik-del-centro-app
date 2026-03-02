@@ -1,11 +1,9 @@
 "use client"
 
-import Link from "next/link"
 import { Menu, Moon, ShoppingCart, Sun } from "lucide-react"
+import Image from "next/image"
+import Link from "next/link"
 import { useTheme } from "next-themes"
-
-import { useCart } from "@/hooks/use-cart"
-import { useLocale } from "@/hooks/use-locale"
 import { Button } from "@/components/ui/button"
 import {
   Sheet,
@@ -15,6 +13,8 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
+import { useCart } from "@/hooks/use-cart"
+import { useLocale } from "@/hooks/use-locale"
 
 export function Navbar() {
   const { setTheme, resolvedTheme } = useTheme()
@@ -22,17 +22,20 @@ export function Navbar() {
   const { locale, m, setLocale } = useLocale()
   const nextLocale = locale === "es" ? "en" : "es"
   const navLinks = [
-    { href: "/", label: m.nav.home },
     { href: "/products", label: m.nav.products },
     { href: "/contact", label: m.nav.contact },
-    { href: "/cart", label: m.nav.cart },
-    { href: "/checkout", label: m.nav.checkout },
   ]
 
   return (
     <nav className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-3 lg:px-6">
       <Link href="/" className="group inline-flex items-center gap-2 font-heading text-xl">
-        <span className="rounded bg-primary px-2 py-1 text-primary-foreground">EDC</span>
+        <Image
+          src="/images/electronik-logo.jpg"
+          alt="Electronik del Centro Logo"
+          width={64}
+          height={64}
+          className="rounded-full"
+        />
         <span className="text-sm font-bold uppercase tracking-wider text-foreground/90 sm:text-base">
           electronik del centro
         </span>
@@ -76,32 +79,43 @@ export function Navbar() {
               <Menu className="h-5 w-5" />
             </Button>
           </SheetTrigger>
-          <SheetContent>
+          <SheetContent className="flex flex-col">
             <SheetHeader>
               <SheetTitle>{m.nav.menu}</SheetTitle>
               <SheetDescription>{m.nav.menuDescription}</SheetDescription>
             </SheetHeader>
-            <div className="mt-6 flex flex-col gap-2">
-              {navLinks.map((link) => (
-                <Button key={link.href} asChild variant="ghost" className="justify-start">
-                  <Link href={link.href}>{link.label}</Link>
+            <div className="mt-6 flex flex-1 flex-col justify-between gap-6">
+              <div className="flex flex-col gap-2">
+                {navLinks.map((link) => (
+                  <Button key={link.href} asChild variant="ghost" className="justify-start">
+                    <Link href={link.href}>{link.label}</Link>
+                  </Button>
+                ))}
+                <Button asChild variant="ghost" className="justify-start gap-2">
+                  <Link href="/cart">
+                    <ShoppingCart className="h-4 w-4" />
+                    {m.nav.cart} ({itemCount})
+                  </Link>
                 </Button>
-              ))}
-              <Button
-                variant="outline"
-                className="justify-start"
-                onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-              >
-                <span className="hidden dark:inline">{m.nav.switchToLight}</span>
-                <span className="dark:hidden">{m.nav.switchToDark}</span>
-              </Button>
-              <Button
-                variant="outline"
-                className="justify-start"
-                onClick={() => setLocale(nextLocale)}
-              >
-                {m.nav.language}: {nextLocale.toUpperCase()}
-              </Button>
+              </div>
+
+              <div className="flex justify-center gap-2 pb-4">
+                <Button
+                  variant="outline"
+                  className="justify-start"
+                  onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+                >
+                  <span className="hidden dark:inline">{m.nav.switchToLight}</span>
+                  <span className="dark:hidden">{m.nav.switchToDark}</span>
+                </Button>
+                <Button
+                  variant="outline"
+                  className="justify-start"
+                  onClick={() => setLocale(nextLocale)}
+                >
+                  {m.nav.language}: {nextLocale.toUpperCase()}
+                </Button>
+              </div>
             </div>
           </SheetContent>
         </Sheet>
