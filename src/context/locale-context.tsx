@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation"
 import { createContext, type ReactNode, useContext, useState } from "react"
 
+import { setLocaleCookieAction } from "@/app/actions/locale"
 import { LOCALE_COOKIE } from "@/lib/i18n/constants"
 import { type Locale, messages } from "@/lib/i18n/messages"
 
@@ -46,14 +47,7 @@ export function LocaleProvider({
       })
       return
     }
-
-    await fetch("/api/locale", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({ locale: nextLocale }),
-      credentials: "same-origin",
-      cache: "no-store",
-    })
+    await setLocaleCookieAction(nextLocale)
   }
 
   const setLocale = (nextLocale: Locale) => {

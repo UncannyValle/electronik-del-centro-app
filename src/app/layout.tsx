@@ -15,6 +15,7 @@ import Loading from "./loading"
 const bodyFont = IBM_Plex_Sans({
   subsets: ["latin"],
   variable: "--font-body",
+  preload: false,
 })
 
 const headingFont = Space_Grotesk({
