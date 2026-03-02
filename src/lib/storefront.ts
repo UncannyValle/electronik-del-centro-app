@@ -4,8 +4,8 @@ import { createStorefrontApiClient } from "@shopify/storefront-api-client"
 import { cacheLife } from "next/cache"
 import { getServerLocale } from "@/lib/i18n/server"
 import { normalizeImageSrc } from "@/lib/image"
-import { products } from "@/lib/mock-data"
-import type { Product, StorefrontClient } from "@/lib/types"
+import { contactInfo as mockedContactInfo, products } from "@/lib/mock-data"
+import type { ContactInfo, Product, StorefrontClient } from "@/lib/types"
 
 async function getMockedProducts() {
   "use cache"
@@ -25,6 +25,12 @@ async function getMockedProductByHandle(handle: string) {
   return products.find((product) => product.handle === handle) ?? null
 }
 
+async function getMockedContactInfo() {
+  "use cache"
+  cacheLife("max")
+  return mockedContactInfo
+}
+
 const mockedStorefrontClient: StorefrontClient = {
   async getProducts() {
     return getMockedProducts()
@@ -34,6 +40,9 @@ const mockedStorefrontClient: StorefrontClient = {
   },
   async getProductByHandle(handle) {
     return getMockedProductByHandle(handle)
+  },
+  async getContactInfo() {
+    return getMockedContactInfo()
   },
 }
 
@@ -60,6 +69,11 @@ type StorefrontProductNode = {
     }
   } | null
   availableForSale: boolean
+}
+
+type StorefrontMetafieldNode = {
+  key: string
+  value: string | null
 }
 
 const PRODUCTS_QUERY = /* GraphQL */ `
@@ -121,6 +135,26 @@ const PRODUCT_BY_HANDLE_QUERY = /* GraphQL */ `
   }
 `
 
+const SHOP_CONTACT_QUERY = /* GraphQL */ `
+  query ShopContact {
+    shop {
+      metafields(
+        identifiers: [
+          { namespace: "store", key: "phone" }
+          { namespace: "store", key: "email" }
+          { namespace: "store", key: "address_line_1" }
+          { namespace: "store", key: "city_state_zip" }
+          { namespace: "store", key: "facebook_url" }
+          { namespace: "store", key: "instagram_url" }
+        ]
+      ) {
+        key
+        value
+      }
+    }
+  }
+`
+
 function normalizeStoreDomain(storeDomain: string): string {
   if (storeDomain.startsWith("https://")) {
     return storeDomain
@@ -166,6 +200,24 @@ function mapStorefrontProduct(node: StorefrontProductNode): Product {
     image: normalizeImageSrc(node.featuredImage?.url),
     stock,
     featured: node.tags.some((tag) => tag.toLowerCase() === "featured"),
+  }
+}
+
+function mapShopContactInfo(metafields: (StorefrontMetafieldNode | null)[]): ContactInfo {
+  const valueByKey = new Map<string, string>()
+  for (const field of metafields) {
+    if (field?.key && field.value) {
+      valueByKey.set(field.key, field.value)
+    }
+  }
+
+  return {
+    phone: valueByKey.get("phone") ?? mockedContactInfo.phone,
+    email: valueByKey.get("email") ?? mockedContactInfo.email,
+    addressLine1: valueByKey.get("address_line_1") ?? mockedContactInfo.addressLine1,
+    cityStateZip: valueByKey.get("city_state_zip") ?? mockedContactInfo.cityStateZip,
+    facebookUrl: valueByKey.get("facebook_url") ?? mockedContactInfo.facebookUrl,
+    instagramUrl: valueByKey.get("instagram_url") ?? mockedContactInfo.instagramUrl,
   }
 }
 
@@ -215,6 +267,9 @@ const shopifyStorefrontClient: StorefrontClient = {
   async getProductByHandle(handle) {
     const language = toStorefrontLanguageCode(await getServerLocale())
     return getShopifyProductByHandle(handle, language)
+  },
+  async getContactInfo() {
+    return getShopifyContactInfo()
   },
 }
 
@@ -284,6 +339,27 @@ async function getShopifyProductByHandle(
   return data.product ? mapStorefrontProduct(data.product) : null
 }
 
+async function getShopifyContactInfo(): Promise<ContactInfo> {
+  "use cache"
+  cacheLife("hours")
+
+  const client = getShopifyClient()
+  const { data, errors } = await client.request<{
+    shop: {
+      metafields: (StorefrontMetafieldNode | null)[]
+    }
+  }>(SHOP_CONTACT_QUERY)
+
+  if (errors?.graphQLErrors?.length) {
+    throw new Error(errors.graphQLErrors.map((error) => error.message).join(", "))
+  }
+  if (!data) {
+    throw new Error("Shopify Storefront request returned no data.")
+  }
+
+  return mapShopContactInfo(data.shop.metafields)
+}
+
 function shouldUseDummyData() {
   return process.env.NEXT_PUBLIC_USE_DUMMY_DATA === "true"
 }
@@ -310,5 +386,12 @@ export const storefront = {
     }
 
     return shopifyStorefrontClient.getProductByHandle(handle)
+  },
+  async getContactInfo(): Promise<ContactInfo> {
+    if (shouldUseDummyData()) {
+      return mockedStorefrontClient.getContactInfo()
+    }
+
+    return shopifyStorefrontClient.getContactInfo()
   },
 }

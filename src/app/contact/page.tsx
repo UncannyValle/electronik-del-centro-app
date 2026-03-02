@@ -1,12 +1,13 @@
-import { contactInfo } from "@/lib/mock-data"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { getServerMessages } from "@/lib/i18n/server"
+import { storefront } from "@/lib/storefront"
 
 export default async function ContactPage() {
   const { m } = await getServerMessages()
+  const contactInfo = await storefront.getContactInfo()
 
   return (
     <div className="grid gap-8 lg:grid-cols-2">

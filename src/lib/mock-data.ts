@@ -5,6 +5,8 @@ export const contactInfo: ContactInfo = {
   email: "sales@electronikdelcentro.com",
   addressLine1: "13245 Firestone Blvd",
   cityStateZip: "Norwalk, CA 90650",
+  facebookUrl: "https://www.facebook.com/electronikdelcentro/",
+  instagramUrl: "https://www.instagram.com/electronikdelcentro/",
 }
 
 export const products: Product[] = [

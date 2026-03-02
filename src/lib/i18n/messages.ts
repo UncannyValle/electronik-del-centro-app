@@ -6,6 +6,8 @@ type Messages = {
   nav: {
     home: string
     products: string
+    offers: string
+    about: string
     contact: string
     cart: string
     checkout: string
@@ -19,6 +21,16 @@ type Messages = {
   }
   footer: {
     blurb: string
+    shopHeading: string
+    shopProducts: string
+    shopOffers: string
+    shopCategories: string
+    helpHeading: string
+    helpContact: string
+    helpShipping: string
+    helpReturns: string
+    followHeading: string
+    copyright: string
   }
   home: {
     heroTag: string
@@ -29,6 +41,19 @@ type Messages = {
     featuredTitle: string
     featuredDescription: string
     loadingFeatured: string
+    categoriesHeading: string
+    categoryHeadUnits: string
+    categorySpeakers: string
+    categorySubwoofers: string
+    categoryAmplifiers: string
+    categoryCameras: string
+    categoryInstallation: string
+    offersOfDayHeading: string
+    trustBarShipping: string
+    trustBarPayment: string
+    trustBarSupport: string
+    trustBarVerified: string
+    brandStatement: string
   }
   products: {
     title: string
@@ -56,11 +81,16 @@ type Messages = {
   cart: {
     title: string
     empty: string
+    emptyDescription: string
     startShopping: string
     proceedCheckout: string
+    continueShopping: string
     remove: string
     addToCart: string
     outOfStock: string
+    trustSecure: string
+    trustFreeShipping: string
+    trustReturns: string
   }
   checkout: {
     title: string
@@ -104,6 +134,8 @@ export const messages: Record<Locale, Messages> = {
     nav: {
       home: "Inicio",
       products: "Productos",
+      offers: "Ofertas",
+      about: "Nosotros",
       contact: "Contacto",
       cart: "Carrito",
       checkout: "Checkout",
@@ -117,32 +149,54 @@ export const messages: Record<Locale, Messages> = {
     },
     footer: {
       blurb:
-        "Electrónica, estéreos para carro y audio personalizado para raza que le gusta traer buen sonido.",
+        "Llevamos años sirviendo a nuestra comunidad con electrónicos de calidad y precios honestos.",
+      shopHeading: "Tienda",
+      shopProducts: "Productos",
+      shopOffers: "Ofertas",
+      shopCategories: "Categorías",
+      helpHeading: "Ayuda",
+      helpContact: "Contáctanos",
+      helpShipping: "Envíos",
+      helpReturns: "Política de devoluciones",
+      followHeading: "Síguenos",
+      copyright: "© 2025 Electronik Del Centro. Todos los derechos reservados.",
     },
     home: {
-      heroTag: "Electrónica + Audio para Carro",
-      heroTitle: "Arma tu setup ideal con Electronik Del Centro",
-      heroDescription:
-        "Desde teles premium hasta instalaciones de estéreo bien hechas. Este storefront ya está listo para conectarse al Storefront API de Shopify.",
-      shopProducts: "Ver productos",
+      heroTag: "Tu tienda de electrónicos de confianza",
+      heroTitle: "Tu tienda de electrónicos de confianza",
+      heroDescription: "Las mejores ofertas en celulares, laptops, audio y más",
+      shopProducts: "Ver todas las ofertas",
       talkToUs: "Contáctanos",
-      featuredTitle: "Productos destacados",
-      featuredDescription:
-        "Renderizado en servidor con datos dummy por ahora, preparado para cambiar a consultas reales de Shopify.",
+      featuredTitle: "Ofertas del día",
+      featuredDescription: "Productos destacados con los mejores precios",
       loadingFeatured: "Cargando productos destacados...",
+      categoriesHeading: "Categorías",
+      categoryHeadUnits: "Estéreos y Receptores",
+      categorySpeakers: "Bocinas y Componentes",
+      categorySubwoofers: "Subwoofers y Bajos",
+      categoryAmplifiers: "Amplificadores",
+      categoryCameras: "Cámaras y Sensores",
+      categoryInstallation: "Instalación y Accesorios",
+      offersOfDayHeading: "Ofertas del día",
+      trustBarShipping: "Envío rápido",
+      trustBarPayment: "Pago seguro",
+      trustBarSupport: "Atención local",
+      trustBarVerified: "Productos verificados",
+      brandStatement:
+        "Llevamos años sirviendo a nuestra comunidad con electrónicos de calidad y precios honestos.",
     },
     products: {
       title: "Todos los productos",
       description: "Explora electrónica y estéreos para carro en inventario.",
       searchPlaceholder: "Buscar por título o descripción...",
-      noResults: "No encontramos productos con esa búsqueda.",
+      noResults: "No encontramos productos. Intenta ajustar tus filtros.",
       loading: "Cargando productos...",
       details: "Ver detalle",
       stock: "Existencia",
       unitsAvailable: "unidades disponibles",
       backToProducts: "Volver a productos",
-      categoryElectronics: "electrónica",
-      categoryCarStereo: "estéreo de carro",
+      categoryElectronics: "electrónica general",
+      categoryCarStereo: "audio para auto",
     },
     contact: {
       title: "Contacto",
@@ -156,13 +210,18 @@ export const messages: Record<Locale, Messages> = {
       submit: "Enviar",
     },
     cart: {
-      title: "Carrito de compras",
-      empty: "Tu carrito está vacío.",
-      startShopping: "Empezar a comprar",
-      proceedCheckout: "Ir al checkout",
+      title: "Tu carrito",
+      empty: "Tu carrito está vacío. Parece que aún no has agregado nada.",
+      emptyDescription: "",
+      startShopping: "Ver productos",
+      proceedCheckout: "Proceder al pago",
+      continueShopping: "← Seguir comprando",
       remove: "Quitar",
       addToCart: "Agregar al carrito",
       outOfStock: "Sin existencia",
+      trustSecure: "🔒 Pago 100% seguro",
+      trustFreeShipping: "🚚 Envío gratis en pedidos mayores a $500",
+      trustReturns: "↩️ Devoluciones en 30 días",
     },
     checkout: {
       title: "Checkout",
@@ -219,6 +278,8 @@ export const messages: Record<Locale, Messages> = {
     nav: {
       home: "Home",
       products: "Products",
+      offers: "Offers",
+      about: "About",
       contact: "Contact",
       cart: "Cart",
       checkout: "Checkout",
@@ -231,33 +292,54 @@ export const messages: Record<Locale, Messages> = {
       language: "Language",
     },
     footer: {
-      blurb:
-        "Electronics, car stereos, and custom audio systems curated for daily drivers and enthusiasts.",
+      blurb: "Years of service to our community with quality electronics and honest prices.",
+      shopHeading: "Shop",
+      shopProducts: "Products",
+      shopOffers: "Offers",
+      shopCategories: "Categories",
+      helpHeading: "Help",
+      helpContact: "Contact Us",
+      helpShipping: "Shipping",
+      helpReturns: "Return Policy",
+      followHeading: "Follow Us",
+      copyright: "© 2025 Electronik Del Centro. All rights reserved.",
     },
     home: {
-      heroTag: "Electronics + Car Audio",
-      heroTitle: "Build your perfect setup with Electronik Del Centro",
-      heroDescription:
-        "From flagship TVs to clean custom stereo installs, this storefront is ready for Shopify Storefront API integration.",
-      shopProducts: "Shop Products",
-      talkToUs: "Talk to Us",
-      featuredTitle: "Featured Products",
-      featuredDescription:
-        "Server-rendered now with mock data, designed to swap to Shopify queries later.",
+      heroTag: "Your trusted electronics store",
+      heroTitle: "Your trusted electronics store",
+      heroDescription: "The best deals on phones, laptops, audio and more",
+      shopProducts: "View all offers",
+      talkToUs: "Contact Us",
+      featuredTitle: "Deals of the day",
+      featuredDescription: "Featured products at the best prices",
       loadingFeatured: "Loading featured products...",
+      categoriesHeading: "Categories",
+      categoryHeadUnits: "Head Units & Receivers",
+      categorySpeakers: "Speakers & Components",
+      categorySubwoofers: "Subwoofers & Bass",
+      categoryAmplifiers: "Amplifiers",
+      categoryCameras: "Cameras & Sensors",
+      categoryInstallation: "Installation & Accessories",
+      offersOfDayHeading: "Deals of the day",
+      trustBarShipping: "Fast shipping",
+      trustBarPayment: "Secure payment",
+      trustBarSupport: "Local support",
+      trustBarVerified: "Verified products",
+      brandStatement:
+        "Years of service to our community with quality electronics and honest prices.",
     },
     products: {
       title: "All Products",
       description: "Explore electronics and car stereo inventory.",
       searchPlaceholder: "Search by title or description...",
-      noResults: "No products matched your search.",
+      noResults: "No products found. Try adjusting your filters.",
       loading: "Loading products...",
       details: "Details",
       stock: "Stock",
       unitsAvailable: "units available",
       backToProducts: "Back to Products",
-      categoryElectronics: "electronics",
-      categoryCarStereo: "car stereo",
+      categoryElectronics: "general electronics",
+      categoryCarStereo: "car audio",
     },
     contact: {
       title: "Contact",
@@ -271,13 +353,18 @@ export const messages: Record<Locale, Messages> = {
       submit: "Submit",
     },
     cart: {
-      title: "Shopping Cart",
-      empty: "Your cart is empty.",
-      startShopping: "Start Shopping",
-      proceedCheckout: "Proceed to Checkout",
+      title: "Your cart",
+      empty: "Your cart is empty. Looks like you haven't added anything yet.",
+      emptyDescription: "",
+      startShopping: "View products",
+      proceedCheckout: "Proceed to checkout",
+      continueShopping: "← Continue shopping",
       remove: "Remove",
       addToCart: "Add to Cart",
       outOfStock: "Out of Stock",
+      trustSecure: "🔒 100% secure payment",
+      trustFreeShipping: "🚚 Free shipping on orders over $500",
+      trustReturns: "↩️ 30-day returns",
     },
     checkout: {
       title: "Checkout",

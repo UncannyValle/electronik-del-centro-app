@@ -25,10 +25,13 @@ export type ContactInfo = {
   email: string
   addressLine1: string
   cityStateZip: string
+  facebookUrl: string
+  instagramUrl: string
 }
 
 export type StorefrontClient = {
   getProducts: () => Promise<Product[]>
   getFeaturedProducts: () => Promise<Product[]>
   getProductByHandle: (handle: string) => Promise<Product | null>
+  getContactInfo: () => Promise<ContactInfo>
 }
