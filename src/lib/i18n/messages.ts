@@ -136,7 +136,7 @@ export const messages: Record<Locale, Messages> = {
       products: "Productos",
       offers: "Ofertas",
       about: "Nosotros",
-      contact: "Contacto",
+      contact: "Contactanos",
       cart: "Carrito",
       checkout: "Checkout",
       toggleTheme: "Cambiar tema",

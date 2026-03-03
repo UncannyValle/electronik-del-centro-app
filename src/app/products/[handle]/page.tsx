@@ -87,13 +87,13 @@ async function ProductDetailContent({ handle }: { handle: string }) {
           </Badge>
           <h1 className="font-heading text-3xl font-bold">{product.title}</h1>
           <p className="text-muted-foreground">{tagline}</p>
-          <p className="text-sm text-amber-500">
+          <p className="text-sm text-foreground">
             {"★".repeat(4)}☆ {rating}
           </p>
           <div className="space-y-2">
             <Price amount={product.price} compareAt={product.compareAtPrice} />
             {hasSale ? (
-              <p className="text-sm font-medium text-emerald-600">Ahorra hoy con precio especial</p>
+              <p className="text-sm font-medium text-foreground">Ahorra hoy con precio especial</p>
             ) : null}
           </div>
           <div className="space-y-2">

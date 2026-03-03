@@ -26,6 +26,11 @@ const headingFont = Space_Grotesk({
 export const metadata: Metadata = {
   title: "Electronik Del Centro",
   description: "Modern electronics and car stereo ecommerce storefront",
+  icons: {
+    icon: "/images/electronik-logo.jpg",
+    shortcut: "/images/electronik-logo.jpg",
+    apple: "/images/electronik-logo.jpg",
+  },
 }
 
 function AppChrome({ children, locale }: { children: ReactNode; locale: Locale }) {

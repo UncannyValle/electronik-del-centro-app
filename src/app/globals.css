@@ -3,50 +3,110 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
+  --color-full-spectrum-blue-50: #e6ecfe;
+  --color-full-spectrum-blue-100: #cedafd;
+  --color-full-spectrum-blue-200: #9cb4fc;
+  --color-full-spectrum-blue-300: #6b8ffa;
+  --color-full-spectrum-blue-400: #3969f9;
+  --color-full-spectrum-blue-500: #0844f7;
+  --color-full-spectrum-blue-600: #0636c6;
+  --color-full-spectrum-blue-700: #052994;
+  --color-full-spectrum-blue-800: #031b63;
+  --color-full-spectrum-blue-900: #020e31;
+  --color-full-spectrum-blue-950: #010923;
+
+  --color-canary-yellow-50: #fdfde7;
+  --color-canary-yellow-100: #fbfad0;
+  --color-canary-yellow-200: #f7f6a1;
+  --color-canary-yellow-300: #f4f171;
+  --color-canary-yellow-400: #f0ed42;
+  --color-canary-yellow-500: #ece813;
+  --color-canary-yellow-600: #bdba0f;
+  --color-canary-yellow-700: #8e8b0b;
+  --color-canary-yellow-800: #5e5d08;
+  --color-canary-yellow-900: #2f2e04;
+  --color-canary-yellow-950: #212103;
+
+  --color-dark-amethyst-50: #f2ecf8;
+  --color-dark-amethyst-100: #e5d9f2;
+  --color-dark-amethyst-200: #cbb3e5;
+  --color-dark-amethyst-300: #b18dd8;
+  --color-dark-amethyst-400: #9767cb;
+  --color-dark-amethyst-500: #7d41be;
+  --color-dark-amethyst-600: #643498;
+  --color-dark-amethyst-700: #4b2772;
+  --color-dark-amethyst-800: #321a4c;
+  --color-dark-amethyst-900: #190d26;
+  --color-dark-amethyst-950: #12091b;
+
+  --color-berry-lipstick-50: #faeaf0;
+  --color-berry-lipstick-100: #f5d6e1;
+  --color-berry-lipstick-200: #ecacc4;
+  --color-berry-lipstick-300: #e283a6;
+  --color-berry-lipstick-400: #d85a88;
+  --color-berry-lipstick-500: #cf306a;
+  --color-berry-lipstick-600: #a52755;
+  --color-berry-lipstick-700: #7c1d40;
+  --color-berry-lipstick-800: #53132b;
+  --color-berry-lipstick-900: #290a15;
+  --color-berry-lipstick-950: #1d070f;
+
+  --color-blush-pop-50: #fde7f1;
+  --color-blush-pop-100: #fbd0e3;
+  --color-blush-pop-200: #f7a1c6;
+  --color-blush-pop-300: #f471aa;
+  --color-blush-pop-400: #f0428d;
+  --color-blush-pop-500: #ec1371;
+  --color-blush-pop-600: #bd0f5a;
+  --color-blush-pop-700: #8e0b44;
+  --color-blush-pop-800: #5e082d;
+  --color-blush-pop-900: #2f0417;
+  --color-blush-pop-950: #210310;
+
   --font-body: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-heading: "Space Grotesk", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-  --background: oklch(0.99 0.01 90);
-  --foreground: oklch(0.2 0.02 250);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.2 0.02 250);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.2 0.02 250);
-  --primary: #0046be;
-  --primary-foreground: #fff200;
-  --secondary: oklch(0.95 0.02 85);
-  --secondary-foreground: oklch(0.2 0.02 250);
-  --muted: oklch(0.95 0.01 90);
-  --muted-foreground: oklch(0.48 0.02 250);
-  --accent: #fff200;
-  --accent-foreground: #003399;
-  --destructive: oklch(0.62 0.22 25);
-  --destructive-foreground: oklch(0.98 0.01 90);
-  --border: oklch(0.85 0.02 85);
-  --input: oklch(0.85 0.02 85);
-  --ring: #0046be;
+  --background: var(--color-full-spectrum-blue-50);
+  --foreground: #000000;
+  --card: #ffffff;
+  --card-foreground: #000000;
+  --popover: #ffffff;
+  --popover-foreground: #000000;
+  --primary: var(--color-full-spectrum-blue-500);
+  --primary-foreground: #ffffff;
+  --secondary: var(--color-full-spectrum-blue-100);
+  --secondary-foreground: #000000;
+  --muted: var(--color-full-spectrum-blue-50);
+  --muted-foreground: #000000;
+  --accent: var(--color-blush-pop-200);
+  --accent-foreground: #000000;
+  --destructive: var(--color-blush-pop-600);
+  --destructive-foreground: #ffffff;
+  --border: var(--color-full-spectrum-blue-200);
+  --input: var(--color-full-spectrum-blue-200);
+  --ring: var(--color-full-spectrum-blue-400);
   --radius: 0.7rem;
 }
 
 .dark {
-  --background: oklch(0.16 0.02 255);
-  --foreground: oklch(0.97 0.01 90);
-  --card: oklch(0.22 0.02 255);
-  --card-foreground: oklch(0.97 0.01 90);
-  --popover: oklch(0.22 0.02 255);
-  --popover-foreground: oklch(0.97 0.01 90);
-  --primary: #fff200;
-  --primary-foreground: #003399;
-  --secondary: oklch(0.28 0.02 255);
-  --secondary-foreground: oklch(0.97 0.01 90);
-  --muted: oklch(0.26 0.01 255);
-  --muted-foreground: oklch(0.74 0.01 85);
-  --accent: #0046be;
-  --accent-foreground: #fff200;
-  --destructive: oklch(0.67 0.21 24);
-  --destructive-foreground: oklch(0.97 0.01 90);
-  --border: oklch(0.34 0.02 255);
-  --input: oklch(0.34 0.02 255);
-  --ring: #fff200;
+  --background: var(--color-full-spectrum-blue-950);
+  --foreground: #ffffff;
+  --card: var(--color-full-spectrum-blue-900);
+  --card-foreground: #ffffff;
+  --popover: var(--color-full-spectrum-blue-900);
+  --popover-foreground: #ffffff;
+  --primary: var(--color-full-spectrum-blue-500);
+  --primary-foreground: #ffffff;
+  --secondary: var(--color-dark-amethyst-800);
+  --secondary-foreground: #ffffff;
+  --muted: var(--color-full-spectrum-blue-900);
+  --muted-foreground: #ffffff;
+  --accent: var(--color-blush-pop-700);
+  --accent-foreground: #ffffff;
+  --destructive: var(--color-blush-pop-600);
+  --destructive-foreground: #ffffff;
+  --border: var(--color-full-spectrum-blue-800);
+  --input: var(--color-full-spectrum-blue-800);
+  --ring: var(--color-full-spectrum-blue-300);
 }
 
 @theme inline {

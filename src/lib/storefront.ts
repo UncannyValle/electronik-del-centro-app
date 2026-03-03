@@ -4,47 +4,7 @@ import { createStorefrontApiClient } from "@shopify/storefront-api-client"
 import { cacheLife } from "next/cache"
 import { getServerLocale } from "@/lib/i18n/server"
 import { normalizeImageSrc } from "@/lib/image"
-import { contactInfo as mockedContactInfo, products } from "@/lib/mock-data"
 import type { ContactInfo, Product, StorefrontClient } from "@/lib/types"
-
-async function getMockedProducts() {
-  "use cache"
-  cacheLife("max")
-  return products
-}
-
-async function getMockedFeaturedProducts() {
-  "use cache"
-  cacheLife("max")
-  return products.filter((product) => product.featured)
-}
-
-async function getMockedProductByHandle(handle: string) {
-  "use cache"
-  cacheLife("max")
-  return products.find((product) => product.handle === handle) ?? null
-}
-
-async function getMockedContactInfo() {
-  "use cache"
-  cacheLife("max")
-  return mockedContactInfo
-}
-
-const mockedStorefrontClient: StorefrontClient = {
-  async getProducts() {
-    return getMockedProducts()
-  },
-  async getFeaturedProducts() {
-    return getMockedFeaturedProducts()
-  },
-  async getProductByHandle(handle) {
-    return getMockedProductByHandle(handle)
-  },
-  async getContactInfo() {
-    return getMockedContactInfo()
-  },
-}
 
 type StorefrontLanguageCode = "EN" | "ES"
 
@@ -160,7 +120,56 @@ function normalizeStoreDomain(storeDomain: string): string {
     return storeDomain
   }
 
+  if (storeDomain.startsWith("http://")) {
+    return storeDomain.replace("http://", "https://")
+  }
+
   return `https://${storeDomain}`
+}
+
+function isLikelyDevStore(storeDomain: string): boolean {
+  const host = storeDomain.replace(/^https?:\/\//, "").toLowerCase()
+  return /(^|[-.])dev($|[-.])|development/.test(host)
+}
+
+function getContactInfoFallback(): ContactInfo {
+  return {
+    phone: process.env.STORE_CONTACT_PHONE ?? "",
+    email: process.env.STORE_CONTACT_EMAIL ?? "",
+    addressLine1: process.env.STORE_CONTACT_ADDRESS_LINE_1 ?? "",
+    cityStateZip: process.env.STORE_CONTACT_CITY_STATE_ZIP ?? "",
+    facebookUrl: process.env.STORE_CONTACT_FACEBOOK_URL ?? "",
+    instagramUrl: process.env.STORE_CONTACT_INSTAGRAM_URL ?? "",
+  }
+}
+
+function resolveStorefrontConfig() {
+  const endpoint = process.env.SHOPIFY_STOREFRONT_GRAPHQL_ENDPOINT?.trim()
+  let storeDomain = process.env.SHOPIFY_STORE_DOMAIN?.trim()
+  let apiVersion = process.env.SHOPIFY_STOREFRONT_API_VERSION?.trim() ?? "2025-10"
+
+  if (endpoint) {
+    const parsedEndpoint = new URL(endpoint)
+    const endpointVersionMatch = parsedEndpoint.pathname.match(/\/api\/([^/]+)\/graphql\.json$/)
+
+    if (!endpointVersionMatch) {
+      throw new Error(
+        "Invalid SHOPIFY_STOREFRONT_GRAPHQL_ENDPOINT. Expected format: https://{store}.myshopify.com/api/{version}/graphql.json",
+      )
+    }
+
+    storeDomain = `${parsedEndpoint.protocol}//${parsedEndpoint.host}`
+    apiVersion = endpointVersionMatch[1]
+  }
+
+  if (!storeDomain) {
+    throw new Error("Missing SHOPIFY_STORE_DOMAIN or SHOPIFY_STOREFRONT_GRAPHQL_ENDPOINT")
+  }
+
+  return {
+    storeDomain: normalizeStoreDomain(storeDomain),
+    apiVersion,
+  }
 }
 
 function inferCategory(productType: string): Product["category"] {
@@ -204,6 +213,7 @@ function mapStorefrontProduct(node: StorefrontProductNode): Product {
 }
 
 function mapShopContactInfo(metafields: (StorefrontMetafieldNode | null)[]): ContactInfo {
+  const fallbackContactInfo = getContactInfoFallback()
   const valueByKey = new Map<string, string>()
   for (const field of metafields) {
     if (field?.key && field.value) {
@@ -212,23 +222,24 @@ function mapShopContactInfo(metafields: (StorefrontMetafieldNode | null)[]): Con
   }
 
   return {
-    phone: valueByKey.get("phone") ?? mockedContactInfo.phone,
-    email: valueByKey.get("email") ?? mockedContactInfo.email,
-    addressLine1: valueByKey.get("address_line_1") ?? mockedContactInfo.addressLine1,
-    cityStateZip: valueByKey.get("city_state_zip") ?? mockedContactInfo.cityStateZip,
-    facebookUrl: valueByKey.get("facebook_url") ?? mockedContactInfo.facebookUrl,
-    instagramUrl: valueByKey.get("instagram_url") ?? mockedContactInfo.instagramUrl,
+    phone: valueByKey.get("phone") ?? fallbackContactInfo.phone,
+    email: valueByKey.get("email") ?? fallbackContactInfo.email,
+    addressLine1: valueByKey.get("address_line_1") ?? fallbackContactInfo.addressLine1,
+    cityStateZip: valueByKey.get("city_state_zip") ?? fallbackContactInfo.cityStateZip,
+    facebookUrl: valueByKey.get("facebook_url") ?? fallbackContactInfo.facebookUrl,
+    instagramUrl: valueByKey.get("instagram_url") ?? fallbackContactInfo.instagramUrl,
   }
 }
 
 function getShopifyClient() {
-  const storeDomain = process.env.SHOPIFY_STORE_DOMAIN
-  const apiVersion = process.env.SHOPIFY_STOREFRONT_API_VERSION ?? "2026-01"
+  const { storeDomain, apiVersion } = resolveStorefrontConfig()
   const privateAccessToken = process.env.SHOPIFY_STOREFRONT_PRIVATE_ACCESS_TOKEN
   const publicAccessToken = process.env.SHOPIFY_STOREFRONT_PUBLIC_ACCESS_TOKEN
 
-  if (!storeDomain) {
-    throw new Error("Missing SHOPIFY_STORE_DOMAIN")
+  if (process.env.NODE_ENV === "production" && isLikelyDevStore(storeDomain)) {
+    throw new Error(
+      `Refusing to run in production with a dev Shopify store endpoint (${storeDomain}). Point SHOPIFY_STOREFRONT_GRAPHQL_ENDPOINT or SHOPIFY_STORE_DOMAIN to your production store.`,
+    )
   }
 
   if (!privateAccessToken && !publicAccessToken) {
@@ -360,38 +371,4 @@ async function getShopifyContactInfo(): Promise<ContactInfo> {
   return mapShopContactInfo(data.shop.metafields)
 }
 
-function shouldUseDummyData() {
-  return process.env.NEXT_PUBLIC_USE_DUMMY_DATA === "true"
-}
-
-// Keep this boundary stable, so replacing mock data with Shopify Storefront API is straightforward.
-export const storefront = {
-  async getProducts() {
-    if (shouldUseDummyData()) {
-      return mockedStorefrontClient.getProducts()
-    }
-
-    return shopifyStorefrontClient.getProducts()
-  },
-  async getFeaturedProducts() {
-    if (shouldUseDummyData()) {
-      return mockedStorefrontClient.getFeaturedProducts()
-    }
-
-    return shopifyStorefrontClient.getFeaturedProducts()
-  },
-  async getProductByHandle(handle: string): Promise<Product | null> {
-    if (shouldUseDummyData()) {
-      return mockedStorefrontClient.getProductByHandle(handle)
-    }
-
-    return shopifyStorefrontClient.getProductByHandle(handle)
-  },
-  async getContactInfo(): Promise<ContactInfo> {
-    if (shouldUseDummyData()) {
-      return mockedStorefrontClient.getContactInfo()
-    }
-
-    return shopifyStorefrontClient.getContactInfo()
-  },
-}
+export const storefront: StorefrontClient = shopifyStorefrontClient

@@ -34,7 +34,12 @@ export function ProductCard({ product }: { product: Product }) {
       : "Últimas piezas"
 
   return (
-    <Card className="overflow-hidden">
+    <Card className="group relative overflow-hidden transition-[border-color,box-shadow] duration-200 hover:border-foreground hover:ring-1 hover:ring-foreground dark:hover:border-white dark:hover:ring-[#ec1371] dark:hover:shadow-[0_22px_44px_-22px_rgba(236,19,113,0.95)] hover:shadow-xl">
+      <Link
+        href={`/products/${product.handle}`}
+        className="absolute inset-0 z-10 rounded-lg"
+        aria-label={`${m.products.details}: ${product.title}`}
+      />
       <div className="relative aspect-4/3">
         <Image
           src={normalizeImageSrc(product.image)}
@@ -60,14 +65,8 @@ export function ProductCard({ product }: { product: Product }) {
       <CardContent>
         <Price amount={product.price} compareAt={product.compareAtPrice} />
       </CardContent>
-      <CardFooter className="gap-2">
+      <CardFooter className="relative z-20">
         <AddToCartButton product={product} />
-        <Link
-          href={`/products/${product.handle}`}
-          className="inline-flex h-10 items-center rounded-md border border-border px-4 text-sm font-semibold hover:bg-accent"
-        >
-          {m.products.details}
-        </Link>
       </CardFooter>
     </Card>
   )

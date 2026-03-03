@@ -1,6 +1,6 @@
 "use client"
 
-import { Heart, Menu, Moon, Search, ShoppingCart, Sun } from "lucide-react"
+import { Menu, Moon, Search, ShoppingCart, Sun } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { useTheme } from "next-themes"
@@ -22,10 +22,10 @@ export function Navbar() {
   const { locale, m, setLocale } = useLocale()
   const nextLocale = locale === "es" ? "en" : "es"
   const navLinks = [
-    { href: "/", label: m.nav.home },
+    // { href: "/", label: m.nav.home },
     { href: "/products", label: m.nav.products },
-    { href: "/products?featured=true", label: m.nav.offers },
-    { href: "/about", label: m.nav.about },
+    // { href: "/products?featured=true", label: m.nav.offers },
+    // { href: "/about", label: m.nav.about },
     { href: "/contact", label: m.nav.contact },
   ]
 
@@ -39,7 +39,7 @@ export function Navbar() {
           height={64}
           className="rounded-full"
         />
-        <span className="text-sm font-bold tracking-wide text-foreground/90 sm:text-base">
+        <span className="text-sm font-bold tracking-wide text-foreground sm:text-base">
           Electronik Del Centro
         </span>
       </Link>
@@ -72,11 +72,11 @@ export function Navbar() {
             <Search className="h-4 w-4" />
           </Link>
         </Button>
-        <Button asChild variant="outline" size="icon" aria-label="Favoritos">
-          <Link href="/products?wishlist=true">
-            <Heart className="h-4 w-4" />
-          </Link>
-        </Button>
+        {/*<Button asChild variant="outline" size="icon" aria-label="Favoritos">*/}
+        {/*  <Link href="/products?wishlist=true">*/}
+        {/*    <Heart className="h-4 w-4" />*/}
+        {/*  </Link>*/}
+        {/*</Button>*/}
         <Button asChild variant="outline" size="icon" className="relative">
           <Link href="/cart" aria-label={m.nav.cart}>
             <ShoppingCart className="h-4 w-4" />
@@ -118,12 +118,12 @@ export function Navbar() {
                     Buscar
                   </Link>
                 </Button>
-                <Button asChild variant="ghost" className="justify-start gap-2">
-                  <Link href="/products?wishlist=true">
-                    <Heart className="h-4 w-4" />
-                    Favoritos
-                  </Link>
-                </Button>
+                {/*<Button asChild variant="ghost" className="justify-start gap-2">*/}
+                {/*  <Link href="/products?wishlist=true">*/}
+                {/*    <Heart className="h-4 w-4" />*/}
+                {/*    Favoritos*/}
+                {/*  </Link>*/}
+                {/*</Button>*/}
               </div>
 
               <div className="flex justify-center gap-2 pb-4">
