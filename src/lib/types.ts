@@ -6,6 +6,7 @@ export type Product = {
   category: string
   categorySlug: string
   price: number
+  currencyCode: string
   compareAtPrice?: number
   image: string
   stock: number

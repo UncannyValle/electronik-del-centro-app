@@ -1,9 +1,9 @@
 "use client"
 
-import { useCart } from "@/hooks/useCart"
-import { useLocale } from "@/hooks/useLocale"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
+import { useCart } from "@/hooks/useCart"
+import { useLocale } from "@/hooks/useLocale"
 
 export function CheckoutSummary() {
   const { itemCount, subtotal } = useCart()

@@ -1,13 +1,13 @@
 "use client"
 
-import {
-  forwardRef,
-  type ComponentPropsWithoutRef,
-  type ComponentRef,
-  type HTMLAttributes,
-} from "react"
 import * as Dialog from "@radix-ui/react-dialog"
 import { X } from "lucide-react"
+import {
+  type ComponentPropsWithoutRef,
+  type ComponentRef,
+  forwardRef,
+  type HTMLAttributes,
+} from "react"
 
 import { useLocale } from "@/hooks/useLocale"
 import { cn } from "@/lib/utils"

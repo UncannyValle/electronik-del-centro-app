@@ -3,9 +3,9 @@ import { notFound } from "next/navigation"
 import { Suspense } from "react"
 
 import { AddToCartButton } from "@/components/store/AddToCartButton"
-import { ProductDetailTabs } from "@/components/store/ProductDetailTabs"
 import { Price } from "@/components/store/Price"
 import { ProductCard } from "@/components/store/ProductCard"
+import { ProductDetailTabs } from "@/components/store/ProductDetailTabs"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { getServerMessages } from "@/lib/i18n/server"
@@ -88,7 +88,11 @@ async function ProductDetailContent({ handle }: { handle: string }) {
             {"★".repeat(4)}☆ {rating}
           </p>
           <div className="space-y-2">
-            <Price amount={product.price} compareAt={product.compareAtPrice} />
+            <Price
+              amount={product.price}
+              currencyCode={product.currencyCode}
+              compareAt={product.compareAtPrice}
+            />
             {hasSale ? (
               <p className="text-sm font-medium text-foreground">Ahorra hoy con precio especial</p>
             ) : null}

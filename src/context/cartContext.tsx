@@ -2,12 +2,12 @@
 
 import {
   createContext,
-  useContext,
-  useEffect,
-  useRef,
-  useReducer,
   type Dispatch,
   type ReactNode,
+  useContext,
+  useEffect,
+  useReducer,
+  useRef,
 } from "react"
 import type { CartItem } from "@/lib/types"
 

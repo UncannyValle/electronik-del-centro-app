@@ -21,11 +21,13 @@ type StorefrontProductNode = {
   priceRange: {
     minVariantPrice: {
       amount: string
+      currencyCode: string
     }
   }
   compareAtPriceRange: {
     maxVariantPrice: {
       amount: string
+      currencyCode: string
     }
   } | null
   availableForSale: boolean
@@ -54,11 +56,13 @@ const PRODUCTS_QUERY = /* GraphQL */ `
         priceRange {
           minVariantPrice {
             amount
+            currencyCode
           }
         }
         compareAtPriceRange {
           maxVariantPrice {
             amount
+            currencyCode
           }
         }
         availableForSale
@@ -83,11 +87,13 @@ const PRODUCT_BY_HANDLE_QUERY = /* GraphQL */ `
       priceRange {
         minVariantPrice {
           amount
+          currencyCode
         }
       }
       compareAtPriceRange {
         maxVariantPrice {
           amount
+          currencyCode
         }
       }
       availableForSale
@@ -208,6 +214,7 @@ function mapStorefrontProduct(node: StorefrontProductNode): Product {
     category: categoryLabel,
     categorySlug: toCategorySlug(categoryLabel),
     price: Number(node.priceRange.minVariantPrice.amount),
+    currencyCode: node.priceRange.minVariantPrice.currencyCode,
     compareAtPrice: compareAt > 0 ? compareAt : undefined,
     image: normalizeImageSrc(node.featuredImage?.url),
     stock,

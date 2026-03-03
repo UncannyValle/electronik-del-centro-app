@@ -3,7 +3,7 @@ import "server-only"
 import { cookies, headers } from "next/headers"
 
 import { LOCALE_COOKIE } from "@/lib/i18n/constants"
-import { messages, type Locale } from "@/lib/i18n/messages"
+import { type Locale, messages } from "@/lib/i18n/messages"
 
 function normalizeLocale(locale: string | null | undefined): Locale | null {
   if (!locale) return null

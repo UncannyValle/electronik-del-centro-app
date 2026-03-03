@@ -2,12 +2,11 @@
 
 import Image from "next/image"
 import Link from "next/link"
-
-import { useCart } from "@/hooks/useCart"
-import { normalizeImageSrc } from "@/lib/image"
-import { useLocale } from "@/hooks/useLocale"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
+import { useCart } from "@/hooks/useCart"
+import { useLocale } from "@/hooks/useLocale"
+import { normalizeImageSrc } from "@/lib/image"
 
 export function CartHeading() {
   const { itemCount } = useCart()

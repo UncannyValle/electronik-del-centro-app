@@ -5,17 +5,19 @@ import { cn } from "@/lib/utils"
 
 export function Price({
   amount,
+  currencyCode,
   compareAt,
   className,
 }: {
   amount: number
+  currencyCode: string
   compareAt?: number
   className?: string
 }) {
   const { locale } = useLocale()
   const currency = new Intl.NumberFormat(locale, {
     style: "currency",
-    currency: "USD",
+    currency: currencyCode,
   })
 
   return (

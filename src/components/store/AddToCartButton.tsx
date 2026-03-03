@@ -1,10 +1,10 @@
 "use client"
 
+import { Button } from "@/components/ui/button"
 import { useCart } from "@/hooks/useCart"
 import { useLocale } from "@/hooks/useLocale"
 import { normalizeImageSrc } from "@/lib/image"
 import type { Product } from "@/lib/types"
-import { Button } from "@/components/ui/button"
 
 export function AddToCartButton({
   product,

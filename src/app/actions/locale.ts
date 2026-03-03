@@ -3,7 +3,7 @@
 import { cookies } from "next/headers"
 
 import { LOCALE_COOKIE } from "@/lib/i18n/constants"
-import { SUPPORTED_LOCALES, type Locale } from "@/lib/i18n/messages"
+import { type Locale, SUPPORTED_LOCALES } from "@/lib/i18n/messages"
 
 export async function setLocaleCookieAction(nextLocale: Locale) {
   if (!SUPPORTED_LOCALES.includes(nextLocale)) {

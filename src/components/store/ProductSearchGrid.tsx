@@ -6,10 +6,10 @@ import { useMemo } from "react"
 import { ProductCard } from "@/components/store/ProductCard"
 import { Input } from "@/components/ui/input"
 import { useLocale } from "@/hooks/useLocale"
+import type { CategoryFilter, PriceRange, SortOption } from "@/hooks/useProductFilters"
 import { useProductFilters } from "@/hooks/useProductFilters"
 import { filterProducts } from "@/lib/filterProducts"
 import type { Product } from "@/lib/types"
-import type { CategoryFilter, PriceRange, SortOption } from "@/hooks/useProductFilters"
 
 type ProductSearchGridProps = {
   products: Product[]

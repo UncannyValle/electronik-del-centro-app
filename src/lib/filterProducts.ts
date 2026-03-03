@@ -1,6 +1,6 @@
+import type { FiltersState } from "@/hooks/useProductFilters"
 import { hasOffer } from "./productUtils"
 import type { Product } from "./types"
-import type { FiltersState } from "@/hooks/useProductFilters"
 
 function getProductRating(product: Product) {
   const hash = product.id.split("").reduce((total, char) => total + char.charCodeAt(0), 0)

@@ -59,7 +59,11 @@ export function ProductCard({ product }: { product: Product }) {
         <CardDescription className="line-clamp-2">{description}</CardDescription>
       </CardHeader>
       <CardContent>
-        <Price amount={product.price} compareAt={product.compareAtPrice} />
+        <Price
+          amount={product.price}
+          currencyCode={product.currencyCode}
+          compareAt={product.compareAtPrice}
+        />
       </CardContent>
       <CardFooter className="relative z-20">
         <AddToCartButton product={product} />
