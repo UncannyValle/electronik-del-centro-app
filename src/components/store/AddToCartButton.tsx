@@ -1,7 +1,7 @@
 "use client"
 
-import { useCart } from "@/hooks/use-cart"
-import { useLocale } from "@/hooks/use-locale"
+import { useCart } from "@/hooks/useCart"
+import { useLocale } from "@/hooks/useLocale"
 import { normalizeImageSrc } from "@/lib/image"
 import type { Product } from "@/lib/types"
 import { Button } from "@/components/ui/button"

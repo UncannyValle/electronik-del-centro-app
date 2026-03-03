@@ -13,5 +13,5 @@ pnpm run dev
 
 - `src/app/`: routes and layouts (server-first)
 - `src/components/`: UI and layout components
-- `src/context/cart-context.tsx`: cart state via React Context + useReducer
+- `src/context/cartContext.tsx`: cart state via React Context + useReducer
 - `src/lib/storefront.ts`: Shopify Storefront API boundary (no local mock data)

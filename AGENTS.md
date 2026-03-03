@@ -29,6 +29,12 @@
 - Ensure responsive layout with mobile-first Tailwind classes.
 - Navbar: desktop links visible, tablet/mobile links in hamburger menu.
 
+## Naming Conventions
+- React component files use `PascalCase` (e.g. `ProductCard.tsx`, `ThemeProvider.tsx`, `Header.tsx`).
+- Hooks, context modules, and utility/data modules use `camelCase` (e.g. `useCart.ts`, `cartContext.tsx`, `filterProducts.ts`).
+- Keep Next.js App Router conventions unchanged: special files remain lowercase (`page.tsx`, `layout.tsx`, `loading.tsx`, `not-found.tsx`, `error.tsx`) and route segment folders remain framework-driven.
+- Import paths must match on-disk casing exactly to avoid issues on case-sensitive file systems.
+
 ## Biome Formatting
 - Use Biome as the source of truth for formatting and linting.
 - Follow Biome defaults for TypeScript/JavaScript formatting (quotes, semicolons, trailing commas, import ordering) instead of ad-hoc style choices.
@@ -71,6 +77,5 @@
   - `pnpm run format`
   - `pnpm run typecheck`
   - `pnpm run lint`
-  - `pnpm run build` (for release-level confidence)
 - Do not revert unrelated user changes.
 - Keep patches minimal and cohesive.

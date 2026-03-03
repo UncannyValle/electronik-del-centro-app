@@ -1,4 +1,4 @@
-import { useLocaleContext } from "@/context/locale-context"
+import { useLocaleContext } from "@/context/localeContext"
 
 export function useLocale() {
   return useLocaleContext()

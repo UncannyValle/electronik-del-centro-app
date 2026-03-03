@@ -2,8 +2,8 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { AddToCartButton } from "@/components/store/add-to-cart-button"
-import { Price } from "@/components/store/price"
+import { AddToCartButton } from "@/components/store/AddToCartButton"
+import { Price } from "@/components/store/Price"
 import { Badge } from "@/components/ui/badge"
 import {
   Card,
@@ -13,16 +13,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { useLocale } from "@/hooks/use-locale"
+import { useLocale } from "@/hooks/useLocale"
 import { normalizeImageSrc } from "@/lib/image"
 import type { Product } from "@/lib/types"
 
 export function ProductCard({ product }: { product: Product }) {
   const { m } = useLocale()
-  const categoryLabel =
-    product.category === "electronics"
-      ? m.products.categoryElectronics
-      : m.products.categoryCarStereo
   const description =
     m.productDescriptions[product.handle] ??
     m.productDescriptions[product.id] ??
@@ -52,7 +48,7 @@ export function ProductCard({ product }: { product: Product }) {
       <CardHeader>
         <div className="flex items-center justify-between gap-2">
           <Badge variant="secondary" className="capitalize">
-            {categoryLabel}
+            {product.category}
           </Badge>
           <span className="text-xs text-muted-foreground">
             {m.products.stock}: {product.stock}

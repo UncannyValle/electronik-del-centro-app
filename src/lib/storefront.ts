@@ -172,20 +172,21 @@ function resolveStorefrontConfig() {
   }
 }
 
-function inferCategory(productType: string): Product["category"] {
-  const type = productType.toLowerCase()
+function resolveCategoryLabel(productType: string): string {
+  const label = productType.trim()
+  return label.length > 0 ? label : "General"
+}
 
-  if (
-    type.includes("car") ||
-    type.includes("stereo") ||
-    type.includes("audio") ||
-    type.includes("subwoofer") ||
-    type.includes("amplifier")
-  ) {
-    return "car-stereo"
-  }
+function toCategorySlug(value: string): string {
+  const slug = value
+    .toLowerCase()
+    .trim()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
 
-  return "electronics"
+  return slug.length > 0 ? slug : "general"
 }
 
 function toStorefrontLanguageCode(
@@ -197,13 +198,15 @@ function toStorefrontLanguageCode(
 function mapStorefrontProduct(node: StorefrontProductNode): Product {
   const stock = node.availableForSale ? 1 : 0
   const compareAt = Number(node.compareAtPriceRange?.maxVariantPrice.amount ?? "0")
+  const categoryLabel = resolveCategoryLabel(node.productType)
 
   return {
     id: node.id,
     handle: node.handle,
     title: node.title,
     description: node.description,
-    category: inferCategory(node.productType),
+    category: categoryLabel,
+    categorySlug: toCategorySlug(categoryLabel),
     price: Number(node.priceRange.minVariantPrice.amount),
     compareAtPrice: compareAt > 0 ? compareAt : undefined,
     image: normalizeImageSrc(node.featuredImage?.url),

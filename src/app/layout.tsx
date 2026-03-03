@@ -1,15 +1,15 @@
 import type { Metadata } from "next"
 import { IBM_Plex_Sans, Space_Grotesk } from "next/font/google"
-import { Suspense, type ReactNode } from "react"
+import { type ReactNode, Suspense } from "react"
 
 import "./globals.css"
-import { Footer } from "@/components/layout/footer"
-import { Header } from "@/components/layout/header"
-import { ThemeProvider } from "@/components/theme-provider"
-import { CartProvider } from "@/context/cart-context"
-import { LocaleProvider } from "@/context/locale-context"
-import { getServerLocale } from "@/lib/i18n/server"
+import { Footer } from "@/components/layout/Footer"
+import { Header } from "@/components/layout/Header"
+import { ThemeProvider } from "@/components/ThemeProvider"
+import { CartProvider } from "@/context/cartContext"
+import { LocaleProvider } from "@/context/localeContext"
 import type { Locale } from "@/lib/i18n/messages"
+import { getServerLocale } from "@/lib/i18n/server"
 import Loading from "./loading"
 
 const bodyFont = IBM_Plex_Sans({

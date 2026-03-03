@@ -1,7 +1,7 @@
 "use client"
 
-import { useCart } from "@/hooks/use-cart"
-import { useLocale } from "@/hooks/use-locale"
+import { useCart } from "@/hooks/useCart"
+import { useLocale } from "@/hooks/useLocale"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 

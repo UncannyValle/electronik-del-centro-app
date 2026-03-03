@@ -3,7 +3,8 @@ export type Product = {
   handle: string
   title: string
   description: string
-  category: "electronics" | "car-stereo"
+  category: string
+  categorySlug: string
   price: number
   compareAtPrice?: number
   image: string

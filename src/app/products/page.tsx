@@ -1,4 +1,4 @@
-import { ProductSearchGrid } from "@/components/store/product-search-grid"
+import { ProductSearchGrid } from "@/components/store/ProductSearchGrid"
 import { getServerMessages } from "@/lib/i18n/server"
 import { storefront } from "@/lib/storefront"
 

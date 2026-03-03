@@ -9,7 +9,7 @@ import {
 import * as Dialog from "@radix-ui/react-dialog"
 import { X } from "lucide-react"
 
-import { useLocale } from "@/hooks/use-locale"
+import { useLocale } from "@/hooks/useLocale"
 import { cn } from "@/lib/utils"
 
 const Sheet = Dialog.Root

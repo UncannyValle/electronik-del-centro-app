@@ -13,8 +13,8 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
-import { useCart } from "@/hooks/use-cart"
-import { useLocale } from "@/hooks/use-locale"
+import { useCart } from "@/hooks/useCart"
+import { useLocale } from "@/hooks/useLocale"
 
 export function Navbar() {
   const { setTheme, resolvedTheme } = useTheme()

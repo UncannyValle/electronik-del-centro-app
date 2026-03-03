@@ -2,10 +2,10 @@ import Image from "next/image"
 import { notFound } from "next/navigation"
 import { Suspense } from "react"
 
-import { AddToCartButton } from "@/components/store/add-to-cart-button"
-import { ProductDetailTabs } from "@/components/store/product-detail-tabs"
-import { Price } from "@/components/store/price"
-import { ProductCard } from "@/components/store/product-card"
+import { AddToCartButton } from "@/components/store/AddToCartButton"
+import { ProductDetailTabs } from "@/components/store/ProductDetailTabs"
+import { Price } from "@/components/store/Price"
+import { ProductCard } from "@/components/store/ProductCard"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { getServerMessages } from "@/lib/i18n/server"
@@ -23,10 +23,7 @@ async function ProductDetailContent({ handle }: { handle: string }) {
   }
 
   const relatedProducts = allProducts.filter((candidate) => candidate.id !== product.id).slice(0, 4)
-  const categoryLabel =
-    product.category === "electronics"
-      ? m.products.categoryElectronics
-      : m.products.categoryCarStereo
+  const categoryLabel = product.category
   const description = m.productDescriptions[product.id] ?? product.description
   const brand = product.title.split(" ")[0]
   const tagline = description.split(".")[0]

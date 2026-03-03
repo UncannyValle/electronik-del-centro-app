@@ -1,6 +1,6 @@
 "use client"
 
-import { useLocale } from "@/hooks/use-locale"
+import { useLocale } from "@/hooks/useLocale"
 import { cn } from "@/lib/utils"
 
 export function Price({

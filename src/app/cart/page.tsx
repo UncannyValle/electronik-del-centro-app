@@ -1,7 +1,7 @@
 import Link from "next/link"
 
-import { CartHeading, CartItems } from "@/components/store/cart-items"
-import { CheckoutSummary } from "@/components/store/checkout-summary"
+import { CartHeading, CartItems } from "@/components/store/CartItems"
+import { CheckoutSummary } from "@/components/store/CheckoutSummary"
 import { Button } from "@/components/ui/button"
 import { getServerMessages } from "@/lib/i18n/server"
 

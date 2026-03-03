@@ -2,40 +2,36 @@ import Image from "next/image"
 import Link from "next/link"
 import { Suspense } from "react"
 
-import { ProductCard } from "@/components/store/product-card"
+import { FeaturedProductsSection } from "@/components/store/FeaturedProductsSection"
 import { Button } from "@/components/ui/button"
 import { getServerMessages } from "@/lib/i18n/server"
 import { storefront } from "@/lib/storefront"
-import Loading from "./loading"
 
-async function FeaturedProducts() {
-  const featured = await storefront.getFeaturedProducts()
-  const allProducts = await storefront.getProducts()
-  const fallbackProducts = allProducts.filter(
-    (candidate) => !featured.some((selected) => selected.id === candidate.id),
-  )
-  const products = [...featured, ...fallbackProducts].slice(0, 6)
-
-  return (
-    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-      {products.map((product) => (
-        <ProductCard key={product.id} product={product} />
-      ))}
-    </div>
-  )
+function getCategoryIcon(categorySlug: string): string {
+  if (categorySlug.includes("head") || categorySlug.includes("stereo")) return "🎛️"
+  if (categorySlug.includes("speaker")) return "🔊"
+  if (categorySlug.includes("subwoofer") || categorySlug.includes("bass")) return "🎵"
+  if (categorySlug.includes("amplifier")) return "⚡"
+  if (categorySlug.includes("camera") || categorySlug.includes("sensor")) return "📷"
+  if (categorySlug.includes("install") || categorySlug.includes("accessor")) return "🛠️"
+  return "🛍️"
 }
 
 export default async function HomePage() {
   const { m } = await getServerMessages()
-
-  const categories = [
-    { name: m.home.categoryHeadUnits, slug: "head-units", icon: "🎛️" },
-    { name: m.home.categorySpeakers, slug: "speakers", icon: "🔊" },
-    { name: m.home.categorySubwoofers, slug: "subwoofers", icon: "🎵" },
-    { name: m.home.categoryAmplifiers, slug: "amplifiers", icon: "⚡" },
-    { name: m.home.categoryCameras, slug: "cameras", icon: "📷" },
-    { name: m.home.categoryInstallation, slug: "installation", icon: "🛠️" },
-  ]
+  const products = await storefront.getProducts()
+  const categories = Array.from(
+    new Map(
+      products.map((product) => [
+        product.categorySlug,
+        {
+          name: product.category,
+          slug: product.categorySlug,
+          icon: getCategoryIcon(product.categorySlug),
+        },
+      ]),
+    ).values(),
+  )
 
   return (
     <div className="space-y-10">
@@ -105,12 +101,9 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">{m.home.offersOfDayHeading}</h2>
-        <Suspense fallback={<Loading />}>
-          <FeaturedProducts />
-        </Suspense>
-      </section>
+      <Suspense fallback={null}>
+        <FeaturedProductsSection />
+      </Suspense>
 
       <section className="rounded-lg border border-border bg-card/50 p-6">
         <div className="grid gap-4 text-center sm:grid-cols-2 lg:grid-cols-4">
