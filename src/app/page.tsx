@@ -67,8 +67,8 @@ export default async function HomePage() {
             <Image
               src="/images/electronik-banner.jpg"
               alt="Electronik Del Centro banner"
-              width={1600}
-              height={700}
+              width={1200}
+              height={450}
               priority
               className="h-auto w-full object-contain"
             />
