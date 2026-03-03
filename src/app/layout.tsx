@@ -21,11 +21,12 @@ const bodyFont = IBM_Plex_Sans({
 const headingFont = Space_Grotesk({
   subsets: ["latin"],
   variable: "--font-heading",
+  preload: false,
 })
 
 export const metadata: Metadata = {
   title: "Electronik Del Centro",
-  description: "Modern electronics and car stereo ecommerce storefront",
+  description: "Car audio, alarms, wiring, and electronic accessories storefront",
   icons: {
     icon: "/images/electronik-logo.jpg",
     shortcut: "/images/electronik-logo.jpg",

@@ -149,7 +149,7 @@ export const messages: Record<Locale, Messages> = {
     },
     footer: {
       blurb:
-        "Llevamos años sirviendo a nuestra comunidad con electrónicos de calidad y precios honestos.",
+        "Llevamos años equipando a nuestra comunidad con audio para auto, alarmas, cableado y accesorios electrónicos de calidad.",
       shopHeading: "Tienda",
       shopProducts: "Productos",
       shopOffers: "Ofertas",
@@ -162,9 +162,9 @@ export const messages: Record<Locale, Messages> = {
       copyright: "© 2025 Electronik Del Centro. Todos los derechos reservados.",
     },
     home: {
-      heroTag: "Tu tienda de electrónicos de confianza",
-      heroTitle: "Tu tienda de electrónicos de confianza",
-      heroDescription: "Las mejores ofertas en celulares, laptops, audio y más",
+      heroTag: "Especialistas en audio para auto y seguridad electrónica",
+      heroTitle: "Especialistas en audio para auto y seguridad electrónica",
+      heroDescription: "Las mejores ofertas en estéreos, alarmas, cableado y accesorios",
       shopProducts: "Ver todas las ofertas",
       talkToUs: "Contáctanos",
       featuredTitle: "Ofertas del día",
@@ -183,11 +183,11 @@ export const messages: Record<Locale, Messages> = {
       trustBarSupport: "Atención local",
       trustBarVerified: "Productos verificados",
       brandStatement:
-        "Llevamos años sirviendo a nuestra comunidad con electrónicos de calidad y precios honestos.",
+        "Llevamos años equipando a nuestra comunidad con audio para auto, alarmas, cableado y accesorios electrónicos de calidad.",
     },
     products: {
       title: "Todos los productos",
-      description: "Explora electrónica y estéreos para carro en inventario.",
+      description: "Explora estéreos, alarmas, cableado y accesorios electrónicos en inventario.",
       searchPlaceholder: "Buscar por título o descripción...",
       noResults: "No encontramos productos. Intenta ajustar tus filtros.",
       loading: "Cargando productos...",
@@ -195,7 +195,7 @@ export const messages: Record<Locale, Messages> = {
       stock: "Existencia",
       unitsAvailable: "unidades disponibles",
       backToProducts: "Volver a productos",
-      categoryElectronics: "electrónica general",
+      categoryElectronics: "alarmas y accesorios",
       categoryCarStereo: "audio para auto",
     },
     contact: {
@@ -265,11 +265,11 @@ export const messages: Record<Locale, Messages> = {
       "kenwood-excelon-x802-5":
         "Amplificador clase D de 5 canales afinado para agudos limpios y bajos con buena pegada en todo el sistema.",
       "sony-wh-1000xm6":
-        "Audífonos inalámbricos con cancelación de ruido, escucha adaptativa y batería para todo el día.",
+        "Kit de alarma inteligente con sensor de impacto, control remoto y aviso sonoro de alta potencia.",
       "jbl-basspro-hub":
         "Subwoofer activo compacto diseñado para montarse en el espacio de la llanta de refacción sin estorbar.",
       "lg-oled-c4-55":
-        "Pantalla OLED 4K con contraste profundo, HDMI 2.1 para gaming y color premium.",
+        "Kit de cableado calibre 4 con fusible, terminales y aislante para instalaciones limpias y seguras.",
       "alpine-ilx-507":
         "Receptor premium con pantalla flotante, CarPlay inalámbrico, Android Auto y soporte de audio HD.",
     },
@@ -292,7 +292,8 @@ export const messages: Record<Locale, Messages> = {
       language: "Language",
     },
     footer: {
-      blurb: "Years of service to our community with quality electronics and honest prices.",
+      blurb:
+        "Years of service helping our community with quality car audio, alarms, wiring, and electronic accessories.",
       shopHeading: "Shop",
       shopProducts: "Products",
       shopOffers: "Offers",
@@ -305,9 +306,9 @@ export const messages: Record<Locale, Messages> = {
       copyright: "© 2025 Electronik Del Centro. All rights reserved.",
     },
     home: {
-      heroTag: "Your trusted electronics store",
-      heroTitle: "Your trusted electronics store",
-      heroDescription: "The best deals on phones, laptops, audio and more",
+      heroTag: "Car Audio and Electronic Security Specialists",
+      heroTitle: "Car Audio and Electronic Security Specialists",
+      heroDescription: "Top deals on head units, alarms, wiring, and accessories",
       shopProducts: "View all offers",
       talkToUs: "Contact Us",
       featuredTitle: "Deals of the day",
@@ -326,11 +327,11 @@ export const messages: Record<Locale, Messages> = {
       trustBarSupport: "Local support",
       trustBarVerified: "Verified products",
       brandStatement:
-        "Years of service to our community with quality electronics and honest prices.",
+        "Years of service helping our community with quality car audio, alarms, wiring, and electronic accessories.",
     },
     products: {
       title: "All Products",
-      description: "Explore electronics and car stereo inventory.",
+      description: "Explore head units, alarms, wiring, and electronic accessories in stock.",
       searchPlaceholder: "Search by title or description...",
       noResults: "No products found. Try adjusting your filters.",
       loading: "Loading products...",
@@ -338,7 +339,7 @@ export const messages: Record<Locale, Messages> = {
       stock: "Stock",
       unitsAvailable: "units available",
       backToProducts: "Back to Products",
-      categoryElectronics: "general electronics",
+      categoryElectronics: "alarms & accessories",
       categoryCarStereo: "car audio",
     },
     contact: {
@@ -407,11 +408,11 @@ export const messages: Record<Locale, Messages> = {
       "kenwood-excelon-x802-5":
         "5-channel class D amplifier tuned for clean highs and deep low-end for full vehicle systems.",
       "sony-wh-1000xm6":
-        "Wireless noise-canceling headphones with adaptive listening and all-day battery life.",
+        "Smart alarm kit with shock sensor, remote controls, and high-output siren for daily protection.",
       "jbl-basspro-hub":
         "Compact powered subwoofer engineered to mount in your spare tire area for stealth installs.",
       "lg-oled-c4-55":
-        "4K OLED panel with rich contrast, gaming-ready HDMI 2.1 ports, and premium color accuracy.",
+        "4-gauge wiring kit with fuse holder, terminals, and protective loom for safe amplifier installs.",
       "alpine-ilx-507":
         "Premium floating screen receiver with wireless CarPlay, Android Auto, and HD audio support.",
     },
