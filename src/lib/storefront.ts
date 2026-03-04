@@ -151,6 +151,10 @@ function isLikelyDevStore(storeDomain: string): boolean {
   return /(^|[-.])dev($|[-.])|development/.test(host)
 }
 
+function isVercelProductionDeployment(): boolean {
+  return process.env.VERCEL_ENV === "production"
+}
+
 function getContactInfoFallback(): ContactInfo {
   return {
     phone: process.env.STORE_CONTACT_PHONE ?? "",
@@ -266,7 +270,7 @@ function getShopifyClient() {
   const privateAccessToken = process.env.SHOPIFY_STOREFRONT_PRIVATE_ACCESS_TOKEN
   const publicAccessToken = process.env.SHOPIFY_STOREFRONT_PUBLIC_ACCESS_TOKEN
 
-  if (process.env.NODE_ENV === "production" && isLikelyDevStore(storeDomain)) {
+  if (isVercelProductionDeployment() && isLikelyDevStore(storeDomain)) {
     throw new Error(
       `Refusing to run in production with a dev Shopify store endpoint (${storeDomain}). Point SHOPIFY_STOREFRONT_GRAPHQL_ENDPOINT or SHOPIFY_STORE_DOMAIN to your production store.`,
     )

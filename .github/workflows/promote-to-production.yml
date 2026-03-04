@@ -1,0 +1,33 @@
+name: Promote Vercel Deployment
+
+on:
+  workflow_dispatch:
+    inputs:
+      deployment_url:
+        description: Vercel deployment URL to promote (prefer staged deployment from main)
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  promote:
+    name: Promote to Production
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Promote deployment
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_TEAM_SLUG: ${{ secrets.VERCEL_TEAM_SLUG }}
+        run: |
+          TEAM_ARGS=""
+          if [ -n "${VERCEL_TEAM_SLUG}" ]; then
+            TEAM_ARGS="--scope ${VERCEL_TEAM_SLUG}"
+          fi
+          npx --yes vercel@latest promote "${{ inputs.deployment_url }}" --yes ${TEAM_ARGS} --token "${VERCEL_TOKEN}"
