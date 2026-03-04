@@ -18,6 +18,9 @@ type StorefrontProductNode = {
   featuredImage: {
     url: string
   } | null
+  images: {
+    nodes: { url: string }[]
+  }
   priceRange: {
     minVariantPrice: {
       amount: string
@@ -53,6 +56,11 @@ const PRODUCTS_QUERY = /* GraphQL */ `
         featuredImage {
           url
         }
+        images(first: 3) {
+          nodes {
+            url
+          }
+        }
         priceRange {
           minVariantPrice {
             amount
@@ -83,6 +91,11 @@ const PRODUCT_BY_HANDLE_QUERY = /* GraphQL */ `
       tags
       featuredImage {
         url
+      }
+      images(first: 3) {
+        nodes {
+          url
+        }
       }
       priceRange {
         minVariantPrice {
@@ -205,6 +218,12 @@ function mapStorefrontProduct(node: StorefrontProductNode): Product {
   const stock = node.availableForSale ? 1 : 0
   const compareAt = Number(node.compareAtPriceRange?.maxVariantPrice.amount ?? "0")
   const categoryLabel = resolveCategoryLabel(node.productType)
+  const featuredImage = normalizeImageSrc(node.featuredImage?.url)
+  const imageCandidates = [
+    featuredImage,
+    ...node.images.nodes.map((image) => normalizeImageSrc(image.url)),
+  ]
+  const images = [...new Set(imageCandidates)]
 
   return {
     id: node.id,
@@ -216,7 +235,8 @@ function mapStorefrontProduct(node: StorefrontProductNode): Product {
     price: Number(node.priceRange.minVariantPrice.amount),
     currencyCode: node.priceRange.minVariantPrice.currencyCode,
     compareAtPrice: compareAt > 0 ? compareAt : undefined,
-    image: normalizeImageSrc(node.featuredImage?.url),
+    image: featuredImage,
+    images,
     stock,
     featured: node.tags.some((tag) => tag.toLowerCase() === "featured"),
   }

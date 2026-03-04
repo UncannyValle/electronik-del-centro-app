@@ -1,4 +1,3 @@
-import Image from "next/image"
 import { notFound } from "next/navigation"
 import { Suspense } from "react"
 
@@ -6,10 +5,10 @@ import { AddToCartButton } from "@/components/store/AddToCartButton"
 import { Price } from "@/components/store/Price"
 import { ProductCard } from "@/components/store/ProductCard"
 import { ProductDetailTabs } from "@/components/store/ProductDetailTabs"
+import { ProductImageGallery } from "@/components/store/ProductImageGallery"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { getServerMessages } from "@/lib/i18n/server"
-import { normalizeImageSrc } from "@/lib/image"
 import { storefront } from "@/lib/storefront"
 import { ProductDetailLoadingSkeleton } from "./loading"
 
@@ -39,41 +38,7 @@ async function ProductDetailContent({ handle }: { handle: string }) {
     <div className="space-y-10">
       <div className="grid gap-8 lg:grid-cols-[1.2fr_1fr] lg:items-start">
         <div className="space-y-3">
-          <div className="relative aspect-4/3 overflow-hidden rounded-xl border border-border">
-            <Image
-              src={normalizeImageSrc(product.image)}
-              alt={product.title}
-              fill
-              className="object-cover"
-              priority
-            />
-          </div>
-          <div className="grid grid-cols-3 gap-3">
-            <div className="relative aspect-square overflow-hidden rounded-md border border-border">
-              <Image
-                src={normalizeImageSrc(product.image)}
-                alt={product.title}
-                fill
-                className="object-cover"
-              />
-            </div>
-            <div className="relative aspect-square overflow-hidden rounded-md border border-border">
-              <Image
-                src={normalizeImageSrc(product.image)}
-                alt={product.title}
-                fill
-                className="object-cover"
-              />
-            </div>
-            <div className="relative aspect-square overflow-hidden rounded-md border border-border">
-              <Image
-                src={normalizeImageSrc(product.image)}
-                alt={product.title}
-                fill
-                className="object-cover"
-              />
-            </div>
-          </div>
+          <ProductImageGallery images={product.images} alt={product.title} />
         </div>
         <div className="space-y-5">
           <p className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
@@ -116,9 +81,9 @@ async function ProductDetailContent({ handle }: { handle: string }) {
           </p>
           <div className="flex flex-wrap gap-3">
             <AddToCartButton product={product} />
-            <Button type="button" variant="outline">
+            {/* <Button type="button" variant="outline">
               Guardar para después
-            </Button>
+            </Button> */}
           </div>
         </div>
       </div>

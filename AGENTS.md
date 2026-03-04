@@ -39,14 +39,16 @@
 - Use Biome as the source of truth for formatting and linting.
 - Follow Biome defaults for TypeScript/JavaScript formatting (quotes, semicolons, trailing commas, import ordering) instead of ad-hoc style choices.
 - When editing files, keep formatting Biome-compliant and avoid style-only churn outside the touched scope.
-- Use `pnpm run format` for formatting and `pnpm run lint` for lint validation.
+- Use `pnpm run check` (`biome check --write .`) as the default all-in-one fix/lint/format command.
 
 ## MCP / Context7 Usage
 - Use `next-devtools` MCP for Next.js runtime diagnostics, routing issues, server/client boundary debugging, and App Router behavior validation before making speculative fixes.
 - Use `shopify-dev-mcp` for Shopify integration tasks (Storefront API schema/query checks, cart/checkout flows, product/variant data mapping, and auth/config validation).
+- Use shadcn MCP whenever creating new UI components; check available shadcn components/patterns there first before building custom implementations.
 - MCP priority by domain:
   - Next.js app behavior/performance/debugging: `next-devtools` first.
   - Shopify commerce/data/checkout integration: `shopify-dev-mcp` first.
+  - New UI component creation: shadcn MCP first.
   - Framework/library documentation or API reference clarification: Context7.
 - For framework/library guidance, use Context7 first:
   - Resolve library ID via `mcp__context7__resolve-library-id`.
@@ -66,6 +68,10 @@
   - Validate Storefront API query shape against expected product/cart/checkout types.
   - Test cart line mutations and checkout handoff flow with realistic payloads.
   - Keep Shopify-specific logic inside `src/lib/storefront.ts` adapter boundaries.
+- shadcn MCP checklist:
+  - Before adding a new component, check shadcn MCP for an existing component or recommended composition pattern.
+  - Prefer generated/adapted shadcn patterns over one-off custom primitives.
+  - Keep custom wrappers thin and consistent with existing `src/components/ui/` conventions.
 - Context7 checklist:
   - Resolve the exact library/version first.
   - Query only the specific feature/API needed for the current task.
@@ -74,8 +80,7 @@
 
 ## Quality Checks
 - Before finalizing changes, run:
-  - `pnpm run format`
+  - `pnpm run check`
   - `pnpm run typecheck`
-  - `pnpm run lint`
 - Do not revert unrelated user changes.
 - Keep patches minimal and cohesive.

@@ -9,6 +9,7 @@ export type Product = {
   currencyCode: string
   compareAtPrice?: number
   image: string
+  images: string[]
   stock: number
   featured?: boolean
 }
