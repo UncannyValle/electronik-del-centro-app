@@ -1,41 +1,25 @@
 "use client"
 
-import { ChevronLeft, ChevronRight } from "lucide-react"
 import Image from "next/image"
 import { useMemo, useState } from "react"
-
-import { Button } from "@/components/ui/button"
+import { ProductImageGalleryDialog } from "@/components/store/ProductImageGalleryDialog"
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog"
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel"
 import { normalizeImageSrc } from "@/lib/image"
 import { cn } from "@/lib/utils"
-
-const VISIBLE_THUMBNAILS = 3
 
 function normalizeGalleryImages(images: string[]): string[] {
   const uniqueImages = [...new Set(images.map((image) => normalizeImageSrc(image)))]
   return uniqueImages.length > 0 ? uniqueImages : [normalizeImageSrc(null)]
 }
 
-function buildThumbnailIndexes(totalImages: number): number[] {
-  if (totalImages <= 0) {
-    return []
-  }
-
-  return Array.from({ length: VISIBLE_THUMBNAILS }, (_, index) => index % totalImages)
-}
-
 export function ProductImageGallery({ images, alt }: { images: string[]; alt: string }) {
   const galleryImages = useMemo(() => normalizeGalleryImages(images), [images])
-  const thumbnailIndexes = useMemo(
-    () => buildThumbnailIndexes(galleryImages.length),
-    [galleryImages.length],
-  )
   const [activeIndex, setActiveIndex] = useState(0)
   const [open, setOpen] = useState(false)
   const selectedImage = galleryImages[activeIndex] ?? galleryImages[0]
@@ -43,14 +27,6 @@ export function ProductImageGallery({ images, alt }: { images: string[]; alt: st
   function openImageAt(index: number) {
     setActiveIndex(index)
     setOpen(true)
-  }
-
-  function goToPreviousImage() {
-    setActiveIndex((current) => (current - 1 + galleryImages.length) % galleryImages.length)
-  }
-
-  function goToNextImage() {
-    setActiveIndex((current) => (current + 1) % galleryImages.length)
   }
 
   return (
@@ -72,92 +48,48 @@ export function ProductImageGallery({ images, alt }: { images: string[]; alt: st
         </div>
       </button>
 
-      <div className="grid grid-cols-3 gap-3">
-        {thumbnailIndexes.map((imageIndex, thumbIndex) => (
-          <button
-            type="button"
-            key={`${galleryImages[imageIndex]}-${thumbIndex}`}
-            className={cn(
-              "relative aspect-square overflow-hidden rounded-md border border-border transition-colors",
-              imageIndex === activeIndex ? "ring-2 ring-foreground" : "hover:border-foreground/60",
-            )}
-            onClick={() => openImageAt(imageIndex)}
-            aria-label={`Ver imagen ${thumbIndex + 1}`}
-          >
-            <Image
-              src={galleryImages[imageIndex]}
-              alt={`${alt} miniatura ${thumbIndex + 1}`}
-              fill
-              className="object-cover"
-            />
-          </button>
-        ))}
-      </div>
+      <Carousel
+        opts={{ align: "start" }}
+        className={cn("w-full px-10", galleryImages.length <= 3 && "px-0")}
+      >
+        <CarouselContent className="-ml-3">
+          {galleryImages.map((image, index) => (
+            <CarouselItem key={image} className="basis-1/3 pl-3">
+              <button
+                type="button"
+                className={cn(
+                  "relative aspect-square w-full overflow-hidden rounded-md border border-border transition-colors",
+                  index === activeIndex ? "ring-2 ring-foreground" : "hover:border-foreground/60",
+                )}
+                onClick={() => openImageAt(index)}
+                aria-label={`Ver imagen ${index + 1}`}
+              >
+                <Image
+                  src={image}
+                  alt={`${alt} miniatura ${index + 1}`}
+                  fill
+                  className="object-cover"
+                />
+              </button>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        {galleryImages.length > 3 ? (
+          <>
+            <CarouselPrevious className="-left-1 border-border" />
+            <CarouselNext className="-right-1 border-border" />
+          </>
+        ) : null}
+      </Carousel>
 
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="max-w-4xl p-4 sm:p-6">
-          <DialogHeader className="sr-only">
-            <DialogTitle>Galeria de imagenes de {alt}</DialogTitle>
-            <DialogDescription>
-              Navega entre imagenes del producto usando las flechas o miniaturas.
-            </DialogDescription>
-          </DialogHeader>
-          <div className="space-y-4">
-            <div className="relative aspect-4/3 overflow-hidden rounded-lg border border-border bg-muted/20">
-              <Image
-                src={selectedImage}
-                alt={`${alt} imagen ampliada`}
-                fill
-                className="object-contain"
-                sizes="90vw"
-              />
-              <div className="absolute inset-x-3 top-1/2 flex -translate-y-1/2 items-center justify-between">
-                <Button
-                  type="button"
-                  variant="secondary"
-                  size="icon"
-                  aria-label="Imagen anterior"
-                  onClick={goToPreviousImage}
-                >
-                  <ChevronLeft className="h-5 w-5" />
-                </Button>
-                <Button
-                  type="button"
-                  variant="secondary"
-                  size="icon"
-                  aria-label="Siguiente imagen"
-                  onClick={goToNextImage}
-                >
-                  <ChevronRight className="h-5 w-5" />
-                </Button>
-              </div>
-            </div>
-            <div className="grid grid-cols-3 gap-3">
-              {thumbnailIndexes.map((imageIndex, thumbIndex) => (
-                <button
-                  type="button"
-                  key={`modal-${galleryImages[imageIndex]}-${thumbIndex}`}
-                  className={cn(
-                    "relative aspect-square overflow-hidden rounded-md border border-border transition-colors",
-                    imageIndex === activeIndex
-                      ? "ring-2 ring-foreground"
-                      : "hover:border-foreground/60",
-                  )}
-                  onClick={() => setActiveIndex(imageIndex)}
-                  aria-label={`Seleccionar imagen ${thumbIndex + 1}`}
-                >
-                  <Image
-                    src={galleryImages[imageIndex]}
-                    alt={`${alt} miniatura modal ${thumbIndex + 1}`}
-                    fill
-                    className="object-cover"
-                  />
-                </button>
-              ))}
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
+      <ProductImageGalleryDialog
+        open={open}
+        onOpenChange={setOpen}
+        images={galleryImages}
+        alt={alt}
+        activeIndex={activeIndex}
+        onActiveIndexChange={setActiveIndex}
+      />
     </>
   )
 }
