@@ -1,3 +1,9 @@
+export type ProductVariant = {
+  id: string
+  title: string
+  availableForSale: boolean
+}
+
 export type Product = {
   id: string
   handle: string
@@ -11,6 +17,8 @@ export type Product = {
   image: string
   images: string[]
   stock: number
+  variants: ProductVariant[]
+  selectedVariantId: string
   featured?: boolean
 }
 

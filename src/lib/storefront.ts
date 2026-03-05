@@ -4,7 +4,7 @@ import { createStorefrontApiClient } from "@shopify/storefront-api-client"
 import { cacheLife } from "next/cache"
 import { getServerLocale } from "@/lib/i18n/server"
 import { normalizeImageSrc } from "@/lib/image"
-import type { ContactInfo, Product, StorefrontClient } from "@/lib/types"
+import type { ContactInfo, Product, ProductVariant, StorefrontClient } from "@/lib/types"
 
 type StorefrontLanguageCode = "EN" | "ES"
 
@@ -32,6 +32,16 @@ type StorefrontProductNode = {
       amount: string
       currencyCode: string
     }
+  } | null
+  variants?: {
+    nodes: {
+      id: string
+      title: string
+      availableForSale: boolean
+    }[]
+  }
+  selectedOrFirstAvailableVariant?: {
+    id: string
   } | null
   availableForSale: boolean
 }
@@ -108,6 +118,16 @@ const PRODUCT_BY_HANDLE_QUERY = /* GraphQL */ `
           amount
           currencyCode
         }
+      }
+      variants(first: 25) {
+        nodes {
+          id
+          title
+          availableForSale
+        }
+      }
+      selectedOrFirstAvailableVariant {
+        id
       }
       availableForSale
     }
@@ -228,6 +248,18 @@ function mapStorefrontProduct(node: StorefrontProductNode): Product {
     ...node.images.nodes.map((image) => normalizeImageSrc(image.url)),
   ]
   const images = [...new Set(imageCandidates)]
+  const variantsFromApi: ProductVariant[] = (node.variants?.nodes ?? []).map((variant) => ({
+    id: variant.id,
+    title: variant.title,
+    availableForSale: variant.availableForSale,
+  }))
+  const fallbackVariant: ProductVariant = {
+    id: `${node.id}-default`,
+    title: "Default",
+    availableForSale: node.availableForSale,
+  }
+  const variants = variantsFromApi.length > 0 ? variantsFromApi : [fallbackVariant]
+  const selectedVariantId = node.selectedOrFirstAvailableVariant?.id ?? variants[0].id
 
   return {
     id: node.id,
@@ -242,6 +274,8 @@ function mapStorefrontProduct(node: StorefrontProductNode): Product {
     image: featuredImage,
     images,
     stock,
+    variants,
+    selectedVariantId,
     featured: node.tags.some((tag) => tag.toLowerCase() === "featured"),
   }
 }

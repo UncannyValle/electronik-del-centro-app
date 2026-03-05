@@ -84,11 +84,11 @@ export function ProductImageGallery({ images, alt }: { images: string[]; alt: st
 
       <ProductImageGalleryDialog
         open={open}
-        onOpenChange={setOpen}
+        onOpenChangeAction={setOpen}
         images={galleryImages}
         alt={alt}
         activeIndex={activeIndex}
-        onActiveIndexChange={setActiveIndex}
+        onActiveIndexChangeAction={setActiveIndex}
       />
     </>
   )
