@@ -65,15 +65,18 @@ async function ProductDetailContent({ handle }: { handle: string }) {
           <div className="space-y-2">
             <p className="text-sm font-semibold">Variantes</p>
             <div className="flex flex-wrap gap-2">
-              <Button type="button" variant="outline" size="sm">
-                Estándar
-              </Button>
-              <Button type="button" variant="outline" size="sm">
-                Premium
-              </Button>
-              <Button type="button" variant="outline" size="sm">
-                Edición especial
-              </Button>
+              {product.variants.map((variant) => (
+                <Button
+                  key={variant.id}
+                  type="button"
+                  variant={variant.id === product.selectedVariantId ? "default" : "outline"}
+                  size="sm"
+                  aria-pressed={variant.id === product.selectedVariantId}
+                  disabled={!variant.availableForSale}
+                >
+                  {variant.title}
+                </Button>
+              ))}
             </div>
           </div>
           <p className="text-sm text-muted-foreground">
