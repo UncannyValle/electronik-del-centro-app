@@ -9,7 +9,7 @@ on:
       - main
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: ci-${{ github.workflow }}-${{ github.ref }}
@@ -45,3 +45,9 @@ jobs:
 
       - name: Build
         run: pnpm run build
+
+      - name: notify vercel
+        if: always()
+        uses: vercel/repository-dispatch/actions/status@v1
+        with:
+          name: "Vercel - electronik-del-centro-app: Github actions"
