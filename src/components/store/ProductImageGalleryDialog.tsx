@@ -22,20 +22,20 @@ import { cn } from "@/lib/utils"
 
 type ProductImageGalleryDialogProps = {
   open: boolean
-  onOpenChange: (open: boolean) => void
+  onOpenChangeAction: (open: boolean) => void
   images: string[]
   alt: string
   activeIndex: number
-  onActiveIndexChange: (index: number) => void
+  onActiveIndexChangeAction: (index: number) => void
 }
 
 export function ProductImageGalleryDialog({
   open,
-  onOpenChange,
+  onOpenChangeAction,
   images,
   alt,
   activeIndex,
-  onActiveIndexChange,
+  onActiveIndexChangeAction,
 }: ProductImageGalleryDialogProps) {
   const [mainApi, setMainApi] = useState<CarouselApi>()
   const [tabsApi, setTabsApi] = useState<CarouselApi>()
@@ -52,7 +52,7 @@ export function ProductImageGalleryDialog({
 
     const syncFromMain = () => {
       const nextIndex = mainApi.selectedScrollSnap()
-      onActiveIndexChange(nextIndex)
+      onActiveIndexChangeAction(nextIndex)
       tabsApi?.scrollTo(nextIndex)
     }
 
@@ -61,10 +61,10 @@ export function ProductImageGalleryDialog({
     return () => {
       mainApi.off("select", syncFromMain)
     }
-  }, [mainApi, onActiveIndexChange, tabsApi])
+  }, [mainApi, onActiveIndexChangeAction, tabsApi])
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={open} onOpenChange={onOpenChangeAction}>
       <DialogContent className="max-w-4xl p-4 sm:p-6">
         <DialogHeader className="sr-only">
           <DialogTitle>Galeria de imagenes de {alt}</DialogTitle>
@@ -115,7 +115,7 @@ export function ProductImageGalleryDialog({
                         : "hover:border-foreground/60",
                     )}
                     onClick={() => {
-                      onActiveIndexChange(index)
+                      onActiveIndexChangeAction(index)
                       mainApi?.scrollTo(index)
                     }}
                     aria-label={`Seleccionar imagen ${index + 1}`}
