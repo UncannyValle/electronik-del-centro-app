@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Electronik Del Centro — Sitemap</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Inter", "Segoe UI", sans-serif;
+      color: #e5e5e5;
+      padding: 60px 48px 80px;
+      min-height: 100vh;
+    }
+
+    /* ── Header ──────────────────────────────────────────── */
+    header {
+      margin-bottom: 56px;
+    }
+    header h1 {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: #666;
+      margin-bottom: 8px;
+    }
+    header h2 {
+      font-size: 28px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -.02em;
+    }
+
+    /* ── Legend ──────────────────────────────────────────── */
+    .legend {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 48px;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: #888;
+    }
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 3px;
+    }
+
+    /* ── Tree ────────────────────────────────────────────── */
+
+    /* Level 0 — root */
+    .level-0 {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 0;
+    }
+
+    /* Connector line from root down */
+    .root-connector {
+      display: flex;
+      justify-content: center;
+    }
+    .root-connector::after {
+      content: "";
+      display: block;
+      width: 2px;
+      height: 32px;
+      background: #333;
+    }
+
+    /* Branch row — holds all L1 nodes */
+    .branch-row {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      position: relative;
+    }
+
+    /* Horizontal bar connecting L1 nodes */
+    .branch-row::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: calc(50% - (var(--branch-width) / 2));
+      width: var(--branch-width);
+      height: 2px;
+      background: #333;
+    }
+
+    .branch {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+      min-width: 120px;
+      max-width: 200px;
+    }
+
+    /* Vertical line from horizontal bar down to node */
+    .branch-drop {
+      width: 2px;
+      height: 32px;
+      background: #333;
+    }
+
+    /* Children connector */
+    .children-connector {
+      width: 2px;
+      height: 24px;
+      background: #333;
+    }
+
+    .children {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      margin-top: 0;
+    }
+
+    /* ── Nodes ───────────────────────────────────────────── */
+    .node {
+      border-radius: 10px;
+      padding: 14px 18px;
+      text-align: center;
+      position: relative;
+      cursor: default;
+      transition: transform .15s;
+      min-width: 110px;
+    }
+    .node:hover { transform: translateY(-2px); }
+
+    .node-label {
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 1.3;
+      white-space: nowrap;
+    }
+    .node-url {
+      font-size: 10px;
+      margin-top: 4px;
+      opacity: .55;
+      font-family: "JetBrains Mono", "Fira Code", monospace;
+    }
+    .node-badge {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-top: 6px;
+      padding: 2px 7px;
+      border-radius: 4px;
+      display: inline-block;
+    }
+
+    /* Color themes */
+    .node-home {
+      background: #1a1a2e;
+      border: 2px solid #4f46e5;
+      color: #a5b4fc;
+    }
+    .node-home .node-badge { background: #4f46e540; color: #818cf8; }
+
+    .node-primary {
+      background: #1a1f2e;
+      border: 2px solid #2563eb;
+      color: #93c5fd;
+    }
+    .node-primary .node-badge { background: #2563eb30; color: #60a5fa; }
+
+    .node-dynamic {
+      background: #1a2020;
+      border: 2px dashed #0d9488;
+      color: #5eead4;
+    }
+    .node-dynamic .node-badge { background: #0d948830; color: #2dd4bf; }
+
+    .node-secondary {
+      background: #1e1a2e;
+      border: 2px solid #7c3aed;
+      color: #c4b5fd;
+    }
+    .node-secondary .node-badge { background: #7c3aed30; color: #a78bfa; }
+
+    .node-utility {
+      background: #1e1e1e;
+      border: 2px solid #404040;
+      color: #a3a3a3;
+    }
+    .node-utility .node-badge { background: #40404030; color: #737373; }
+
+    /* ── Section labels ──────────────────────────────────── */
+
+    /* ── Footer ──────────────────────────────────────────── */
+    footer {
+      margin-top: 72px;
+      padding-top: 24px;
+      border-top: 1px solid #1f1f1f;
+      font-size: 11px;
+      color: #444;
+      display: flex;
+      justify-content: space-between;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Electronik Del Centro</h1>
+    <h2>Site Map</h2>
+  </header>
+
+  <div class="legend">
+    <div class="legend-item">
+      <div class="legend-dot" style="background:#4f46e5"></div>
+      Home
+    </div>
+    <div class="legend-item">
+      <div class="legend-dot" style="background:#2563eb"></div>
+      Primary
+    </div>
+    <div class="legend-item">
+      <div class="legend-dot" style="border:2px dashed #0d9488; background:transparent; width:12px;height:12px;border-radius:3px"></div>
+      Dynamic (per product)
+    </div>
+    <div class="legend-item">
+      <div class="legend-dot" style="background:#7c3aed"></div>
+      Secondary
+    </div>
+    <div class="legend-item">
+      <div class="legend-dot" style="background:#404040"></div>
+      Utility
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       TREE
+  ══════════════════════════════════════════════════════════ -->
+
+  <!-- ROOT -->
+  <div class="level-0">
+    <div class="node node-home">
+      <div class="node-label">Home</div>
+      <div class="node-url">/</div>
+      <div class="node-badge">Root</div>
+    </div>
+  </div>
+
+  <!-- Root → L1 connector -->
+  <div class="root-connector"></div>
+
+  <!-- L1 branches -->
+  <!--
+    We fake the horizontal bar with a fixed width matching the spread of the nodes.
+    --branch-width is set inline to ~(count × node-width).
+  -->
+  <div class="branch-row" style="--branch-width: 860px">
+
+    <!-- ── Products ─────────────────────────────── -->
+    <div class="branch">
+      <div class="branch-drop"></div>
+      <div class="node node-primary">
+        <div class="node-label">Products</div>
+        <div class="node-url">/products</div>
+        <div class="node-badge">List / Search</div>
+      </div>
+      <div class="children-connector"></div>
+      <div class="children">
+        <div class="node node-dynamic">
+          <div class="node-label">Product Detail</div>
+          <div class="node-url">/products/[handle]</div>
+          <div class="node-badge">Dynamic × n</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── About ─────────────────────────────────── -->
+    <div class="branch">
+      <div class="branch-drop"></div>
+      <div class="node node-secondary">
+        <div class="node-label">About</div>
+        <div class="node-url">/about</div>
+        <div class="node-badge">Static</div>
+      </div>
+    </div>
+
+    <!-- ── Contact ───────────────────────────────── -->
+    <div class="branch">
+      <div class="branch-drop"></div>
+      <div class="node node-secondary">
+        <div class="node-label">Contact</div>
+        <div class="node-url">/contact</div>
+        <div class="node-badge">Static</div>
+      </div>
+    </div>
+
+    <!-- ── Cart ──────────────────────────────────── -->
+    <div class="branch">
+      <div class="branch-drop"></div>
+      <div class="node node-utility">
+        <div class="node-label">Cart</div>
+        <div class="node-url">/cart</div>
+        <div class="node-badge">Utility</div>
+      </div>
+      <div class="children-connector"></div>
+      <div class="children">
+        <div class="node node-utility">
+          <div class="node-label">Checkout</div>
+          <div class="node-url">/checkout</div>
+          <div class="node-badge">Utility</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /.branch-row -->
+
+  <footer>
+    <span>Electronik Del Centro &mdash; Sitemap reference</span>
+    <span>Generated 2026-03-11</span>
+  </footer>
+
+</body>
+</html>
